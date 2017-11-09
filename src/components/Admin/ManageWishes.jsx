@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 import { LinearProgress } from 'material-ui/Progress'
 
-import { Firestore } from '../../Data/Firebase'
+import { Firestore, Firebase } from '../../Data/Firebase'
 
 import WishForm from './WishForm'
 import WishCard from './WishCard'
@@ -19,24 +19,20 @@ class ManageWishes extends Component {
 
     this.init = this.init.bind(this)
     this.addWish = this.addWish.bind(this)
+    this.deleteWish = this.deleteWish.bind(this)
+    this.editWish = this.editWish.bind(this)
 
-  }
-
-  componentWillUpdate() {
-    console.log('component did update')
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
-    if (nextProps.finishedAuth && this.props.loggedIn) {
-      this.wishesRef = Firestore.collection('users').doc(this.props.uid).collection('wishes')
-      console.log(this)
-      this.init()
+    //Lifecycle methods does not trigger when passing props trough
+    //React-router. Should probably find a less hacky way to do this
+    Firebase.auth().onAuthStateChanged(
+      (user) => {
+        if (user) {
+          this.wishesRef = Firestore.collection('users').doc(user.uid).collection('wishes')
+          this.init()
+        }
+      })
     }
-  }
-
   init() {
-    console.log(this.wishesRef)
     this.wishesRef.onSnapshot((wishRef) => {
       const wishes = []
       wishRef.forEach((wishRef) => {
@@ -58,6 +54,12 @@ class ManageWishes extends Component {
         console.log('Wish added')
       })
       .catch((error) => console.log(error))
+  }
+  deleteWish(id) {
+
+  }
+  editWish(wish) {
+
   }
   render() {
     if (!this.props.LoggedIn) {

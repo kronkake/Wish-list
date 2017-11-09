@@ -1,18 +1,25 @@
 .WishCard {
     padding: 24px;
     display: grid;
-    grid-template-rows: auto;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto 50px;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
     min-height: 200px;
     margin-bottom: 10px;
     grid-template-areas: 
-      "Content Content"
-      "Content Toolbar";
+      "Wishcard-Content Wishcard-Content"
+      ". Wishcard-Toolbar";
 }
 
 .WishCard-Content {
-    grid-area: Content;
+    grid-area: Wishcard-Content;
 }
 
 .WishCard-Toolbar {
-    grid-area: Toolbar;
+    align-self: flex-end;
+    justify-self: flex-end;
+    grid-area: Wishcard-Toolbar;
+    display: flex;
+    flex-direction: row;
 }
