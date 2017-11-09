@@ -1,0 +1,10 @@
+.Form {
+    background-color: #eeeeee;
+    padding: 3%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Form-margin {
+    margin-top: 5px;
+}

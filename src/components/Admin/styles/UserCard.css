@@ -1,0 +1,47 @@
+.UserCard {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: auto;
+    height: 300px;
+    margin-bottom: 10px;
+    grid-template-areas: 
+      "Picture InfoWrap";
+}
+
+.UserCard-Picture {
+    grid-area: Picture;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+}
+
+.UserCard-Picture > img {
+    border-style: none;
+    height: 100%;
+    max-height: 100%;
+    width: auto;
+}
+
+.UserCard-InfoWrap {
+    grid-area: InfoWrap;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: auto;
+    height: 300px;
+    grid-template-areas: 
+      "Userinfo" 
+      "Toolbar";
+}
+
+.UserCard-UserInfo {
+    grid-area: Userinfo;
+}
+
+.UserCard-Toolbar {
+    grid-area: Toolbar;
+    align-self: flex-end;
+    justify-self: flex-end;
+
+}

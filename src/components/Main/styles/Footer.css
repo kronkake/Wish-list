@@ -1,0 +1,9 @@
+.MainFooter {
+    grid-area: footer;
+    padding: 15px;
+    align-self: flex-end;
+}
+
+.MainFooter > h3 {
+    margin-bottom: 10px;
+}

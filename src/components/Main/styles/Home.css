@@ -1,0 +1,21 @@
+.PaperWrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+}
+
+.PaperLink {
+    padding: 15px;
+    max-width: 250px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+.PaperLink.Quiz-start {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+}

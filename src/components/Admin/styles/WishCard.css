@@ -1,0 +1,18 @@
+.WishCard {
+    padding: 24px;
+    display: grid;
+    grid-template-rows: auto;
+    min-height: 200px;
+    margin-bottom: 10px;
+    grid-template-areas: 
+      "Content Content"
+      "Content Toolbar";
+}
+
+.WishCard-Content {
+    grid-area: Content;
+}
+
+.WishCard-Toolbar {
+    grid-area: Toolbar;
+}
