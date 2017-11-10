@@ -1,28 +1,51 @@
-import React from 'react'
+import React, { Component }  from 'react'
 
 import './styles/WishCard.css'
 
-import Paper from 'material-ui/Paper'
-import Button from 'material-ui/Button'
+import WishCardEditMode from './WishCards/WishCardEdit'
+import WishCardStandard from './WishCards/WishCardStandard'
 
-const WishCard = ({ deleteWish, editWish, wish: { id, text, linkToPrisjakt, url } }) => {
-    return (
-            <Paper elevation={6} className="WishCard">
-                    <section className="WishCard-Content">
-                        {text}
-                    </section>
-                    <section className="WishCard-Toolbar">
-                        <Button raised className="Form-margin" color="primary" onClick={() => deleteWish(id)}>
-                            Delete
-                        </Button>
-                        <Button raised className="Form-margin" color="primary" onClick={() => editWish(id)}>
-                            Edit
-                        </Button>
-                    </section>
-            </Paper>
-    );
+class WishCard extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            editMode: false,
+            wish: this.props.wish
+        }
+
+        this.toggleEditMode = this.toggleEditMode.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+
+    }
+    handleChange(event) {
+        this.setState({ wish[event.target.id]: event.target.value });
+    }
+    toggleEditMode() {
+        const editMode = this.state.editMode
+        this.setState({ editMode: !editMode })
+    }
+    render() {
+        if (this.state.editMode) {
+            return ( 
+                <WishCardEditMode
+                    deleteWish={this.props.deleteWish}
+                    editWish={this.props.editWish}
+                    toggleEditMode={this.toggleEditMode}
+                    handleChange={this.handleChange}
+                    wish={this.state.wish}
+                 />
+            )
+        } else {
+            return(
+                <WishCardStandard
+                    toggleEditMode={this.toggleEditMode}
+                    deleteWish={this.props.deleteWish}
+                    wish={this.state.wish}
+                 />
+            )   
+        }
+    }
 }
-
-
 
 export default WishCard;

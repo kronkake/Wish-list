@@ -56,10 +56,10 @@ class ManageWishes extends Component {
       .catch((error) => console.log(error))
   }
   deleteWish(id) {
-
+    console.log(id)
   }
   editWish(wish) {
-
+    console.log(wish)
   }
   render() {
     if (!this.props.LoggedIn) {

@@ -36,9 +36,9 @@ class WishForm extends Component {
     render() {
         return (
             <form className="Form">
-                <FormControl>
+                <FormControl >
                     <InputLabel htmlFor="text">Wish</InputLabel>
-                    <Input id="text" value={this.state.wish} onChange={this.handleChange} />
+                    <Input fullWidth multiline={true} id="text" value={this.state.wish} onChange={this.handleChange} />
                     <FormHelperText>State your wish</FormHelperText>
                 </FormControl>
                 <FormControl>
