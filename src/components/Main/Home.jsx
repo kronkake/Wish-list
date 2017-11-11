@@ -7,15 +7,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Home Component</h1>
-        <section className="PaperWrap">
-          <Paper square={true} className="PaperLink Quiz-start">
-            <Link to="/quiz">Start Quiz</Link>
-          </Paper>
-          <Paper square={true} className="PaperLink">
-            <Link to="/manageUsers">Manage Users</Link>
-          </Paper>
-        </section>
+        <h1>Her kan du finne ønskelister for alle de kule folka!</h1>
+
       </div>
     );
   }

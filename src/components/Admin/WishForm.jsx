@@ -37,8 +37,8 @@ class WishForm extends Component {
         return (
             <form className="Form">
                 <FormControl >
-                    <InputLabel htmlFor="text">Wish</InputLabel>
-                    <Input fullWidth multiline={true} id="text" value={this.state.wish} onChange={this.handleChange} />
+                    <InputLabel htmlFor="text">text</InputLabel>
+                    <Input fullWidth multiline={true} id="text" value={this.state.text} onChange={this.handleChange} />
                     <FormHelperText>State your wish</FormHelperText>
                 </FormControl>
                 <FormControl>

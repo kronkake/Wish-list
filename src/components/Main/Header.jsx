@@ -3,8 +3,10 @@ import './styles/Header.css'
 
 import { Firebase } from '../../Data/Firebase'
 import LoginDialog from './LoginDialog'
-import HeaderLoggedIn from './Header/HeaderLoggedIn'
-import HeaderNormal from './Header/HeaderNormal'
+import SideDrawer from './Drawer'
+
+import Menu from 'material-ui-icons/Menu';
+import IconButton from 'material-ui/IconButton';
 
 class Header extends Component {
   constructor(props) {
@@ -17,7 +19,8 @@ class Header extends Component {
       message: '',
       loading: false,
       loggedIn: false,
-      uid: ''
+      uid: '',
+      drawerOpen: false
     }
 
     this.openLoginDialog = this.openLoginDialog.bind(this)
@@ -26,6 +29,7 @@ class Header extends Component {
     this.logOut = this.logOut.bind(this)
     this.onChange = this.onChange.bind(this)
     this.checkForEnter = this.checkForEnter.bind(this)
+    this.toggleDrawer = this.toggleDrawer.bind(this)
   }
   openLoginDialog() {
     this.setState({ open: !this.state.open })
@@ -53,6 +57,10 @@ class Header extends Component {
   logOut() {
     Firebase.auth().signOut().then(() => { })
   }
+  toggleDrawer() {
+    const drawerOpen = this.state.drawerOpen
+    this.setState({ drawerOpen: !drawerOpen })
+  }
   render() {
     return (
       <header className="MainHeader">
@@ -65,14 +73,17 @@ class Header extends Component {
           message={this.state.message}
           checkForEnter={this.checkForEnter}
         />
-      {this.props.loggedIn ?
-        <HeaderLoggedIn
+        <IconButton onClick={this.toggleDrawer}>
+          <Menu className="DrawerIcon" />
+        </IconButton>
+        <SideDrawer 
+          open={this.state.drawerOpen}
+          toggleDrawer={this.toggleDrawer}
+          openLoginDialog={this.openLoginDialog}
+          loggedIn={this.props.loggedIn} 
           logOut={this.logOut}
-          uid={this.props.uid} />
-        : 
-        <HeaderNormal 
-          openLoginDialog={this.openLoginDialog} />
-      }
+          uid={this.props.uid}
+        />
       </header>
     );
   }

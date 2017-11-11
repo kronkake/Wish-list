@@ -22,6 +22,8 @@ class ManageWishes extends Component {
     this.deleteWish = this.deleteWish.bind(this)
     this.editWish = this.editWish.bind(this)
 
+    }
+    componentDidMount() {
     //Lifecycle methods does not trigger when passing props trough
     //React-router. Should probably find a less hacky way to do this
     Firebase.auth().onAuthStateChanged(
@@ -31,7 +33,7 @@ class ManageWishes extends Component {
           this.init()
         }
       })
-    }
+  }
   init() {
     this.wishesRef.onSnapshot((wishRef) => {
       const wishes = []
@@ -45,7 +47,7 @@ class ManageWishes extends Component {
   }
   addWish({ index, linkToPrisjakt, text, url }) {
     this.wishesRef.add({ 
-      index: index, 
+      index: this.state.wishes.length + 1, 
       linkToPrisjakt: linkToPrisjakt, 
       text: text, 
       url: url 
@@ -56,10 +58,23 @@ class ManageWishes extends Component {
       .catch((error) => console.log(error))
   }
   deleteWish(id) {
-    console.log(id)
+    this.wishesRef
+      .doc(id)
+      .delete()
+      .then(() => console.log('Wish is deleted'))
+      .catch((error) => console.log(error))
   }
-  editWish(wish) {
-    console.log(wish)
+  editWish({ index, linkToPrisjakt, text, url, id }) {
+    this.wishesRef
+      .doc(id)
+      .set({
+         index: index, 
+         linkToPrisjakt: linkToPrisjakt, 
+         text: text, 
+         url: url
+      })
+      .then(() => console.log('Wish is updated'))
+      .catch((error) => console.log(error))
   }
   render() {
     if (!this.props.LoggedIn) {

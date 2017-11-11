@@ -1,0 +1,36 @@
+.DrawerGrid {
+    display: grid;
+    min-width: 230px;
+    grid-template-areas: 
+    "Header"
+    "Content";
+}
+
+.DrawerGrid a {
+    text-decoration: none;
+}
+
+.DrawerGrid-Header {
+    grid-area: Header;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: #303F9F;
+    padding-left: 16px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.DrawerGrid-ImagePlacerholder {
+    border-radius: 50%;
+    height: 125px;
+    width: 125px;
+    background-color: #3F51B5;
+}
+
+.DrawerGrid-Content {
+    grid-area: Content;
+    display: flex;
+    flex-direction: column;
+}

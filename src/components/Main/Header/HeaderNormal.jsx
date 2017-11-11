@@ -1,14 +1,31 @@
 import React from 'react';
 
-import Button from 'material-ui/Button'
+import { Link } from 'react-router-dom'
 
-const HeaderNormal = ({ openLoginDialog }) => {
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
+import Home from 'material-ui-icons/Home'
+import LockOpen from 'material-ui-icons/LockOpen'
+
+const HeaderNormal = ({ openLoginDialog, toggleDrawer }) => {
     return (
-        <section className="HeaderTop">
-            <Button className="ButtonLink"  onClick={openLoginDialog}>
-                <h1 style={{marginTop: 0, marginBottom: 0}}>Log in</h1>  
-            </Button>
-        </section>
+            <List>
+                <Link to="/" onClick={toggleDrawer}>
+                    <ListItem button>
+                    <ListItemIcon>
+                        <Home />
+                    </ListItemIcon>
+                        <ListItemText primary="Home" />              
+                    </ListItem>
+                </Link>
+                <Link to="/" onClick={() => { toggleDrawer(); openLoginDialog() }}>
+                    <ListItem button>
+                    <ListItemIcon>
+                        <LockOpen />
+                    </ListItemIcon>
+                        <ListItemText primary="Sign in" />              
+                    </ListItem>
+                </Link>
+            </List>
     );
 }
 
