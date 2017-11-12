@@ -8,6 +8,7 @@ import Footer from './components/Main/Footer'
 import ManageWishes from './components/Admin/ManageWishes'
 import Home from './components/Main/Home'
 import ManageUsers from './components/Admin/ManageUsers'
+import User from './components/Main/User'
 
 import { Firebase } from './Data/Firebase'
 
@@ -38,13 +39,14 @@ class App extends Component {
         <main className="MainContentContainer">
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/manageWishes' render={() => 
+            <Route exact path='/manageWishes' render={() => 
             <ManageWishes 
               finishedAuth={this.state.finishedAuth} 
               uid={this.state.uid} 
               LoggedIn={this.state.loggedIn} />} 
             />
-            <Route path='/manageUsers' render={() => <ManageUsers LoggedIn={this.state.loggedIn} />} />
+            <Route exact path='/manageUsers' render={() => <ManageUsers LoggedIn={this.state.loggedIn} />} />
+            <Route path='/user/:id' component={User} />
           </Switch>
         </main>
         <Footer></Footer>

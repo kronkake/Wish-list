@@ -15,7 +15,6 @@ class SideDrawer extends Component {
         super(props)
     }
 
-
     render() {
         const LoggedInContent = (
             <section className="DrawerGrid">

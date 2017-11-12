@@ -18,6 +18,7 @@
     transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
     transform: scale(0.2);
     opacity: 0;
+    border-radius: 2px;
 }
 
 .UserHome.PopIn {
@@ -28,6 +29,10 @@
 .UserHome:hover .UserHome-Image {
     filter: grayscale(0%);
     cursor: pointer;
+}
+
+.UserHome:hover .UserHome-Image > img {
+    transform: scale(1.2);
 }
 
 .UserHome-Image {
@@ -46,6 +51,7 @@
     height: auto;
     width: auto;
     max-height: 500px;
+    transition: all 1s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .UserHome-Content {
@@ -57,7 +63,7 @@
 .UserHome-Content { 
     color: white;
     font-size: 1.2rem;
-    font-weight: 400;
+    font-weight: 300;
 }
 
 @media (max-width: 800px) {

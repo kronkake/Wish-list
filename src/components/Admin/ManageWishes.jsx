@@ -50,7 +50,7 @@ class ManageWishes extends Component {
       index: this.state.wishes.length + 1, 
       linkToPrisjakt: linkToPrisjakt, 
       text: text, 
-      url: url 
+      url: url && url.includes('http') ? url : 'https://' + url
     })
       .then(() => {
         console.log('Wish added')

@@ -4,6 +4,7 @@
     grid-template-rows: auto;
     height: 300px;
     margin-bottom: 10px;
+    border-radius: 2px;
     grid-template-areas: 
       "Picture InfoWrap";
 }

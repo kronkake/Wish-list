@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom'
+
 import { Firestore } from '../../Data/Firebase'
 
 import { LinearProgress } from 'material-ui/Progress'
@@ -50,9 +52,9 @@ class Home extends Component {
           {this.state.users.map((user, i) => { 
             return (
               <div className={`UserHome ${this.state.popIn}`} key={i}>
-                <div className="UserHome-Image">
-                  <img src={user.profilePicUrl} onLoad={this.applyTransition} />
-                </div>
+                <Link to={`/user/${user.id}`} className="UserHome-Image">
+                    <img src={user.profilePicUrl} onLoad={this.applyTransition} />
+                </Link>
                 <div className="UserHome-Content">
                   {user.name}
                 </div>
