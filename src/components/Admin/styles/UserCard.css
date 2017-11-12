@@ -12,7 +12,7 @@
     grid-area: Picture;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
     overflow: hidden;
 }

@@ -1,26 +1,23 @@
 .MainContainer {
   height: 100vh;
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-columns: 25% auto auto 25%;
   grid-template-rows: 105px auto 200px;
   grid-template-areas: 
     "header header header header"
-    ". main main ."
+    "main main main main"
     "footer footer footer footer";
 }
 
 .MainContentContainer {
   grid-area: main;
+  max-width: 1000px;
+  width: 100%;
+  justify-self: center;
 }
 
 @media (max-width: 950px) {
-  .MainContainer {
-    grid-template-areas: 
-      "header header header header"
-      "main main main main"
-      "footer footer footer footer";
-  }
   .MainContentContainer {
-    padding: 10px;
+    padding: 16px;
   }
 }

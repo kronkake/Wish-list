@@ -5,8 +5,15 @@ import { Firebase } from '../../Data/Firebase'
 import LoginDialog from './LoginDialog'
 import SideDrawer from './Drawer'
 
-import Menu from 'material-ui-icons/Menu';
-import IconButton from 'material-ui/IconButton';
+import Menu from 'material-ui-icons/Menu'
+import IconButton from 'material-ui/IconButton'
+import SvgIcon from 'material-ui/SvgIcon'
+
+const SantaHat = props => (
+  <SvgIcon {...props}>
+    <path d="M12.03.18l11.7 10.273-7.17-1.214"/><circle cx="23.73" cy="10.453" r="2.297"/><path d="M20.71 17.542L12.03.182 3.35 17.54M24.06 23.96c0 1.037-.9 1.886-2.004 1.886H2.006C.9 25.846 0 24.996 0 23.96v-3.775c0-1.038.902-1.887 2.005-1.887h20.05c1.104 0 2.006.85 2.006 1.887v3.774z"/>
+  </SvgIcon>
+)
 
 class Header extends Component {
   constructor(props) {
@@ -20,7 +27,8 @@ class Header extends Component {
       loading: false,
       loggedIn: false,
       uid: '',
-      drawerOpen: false
+      drawerOpen: false,
+      slideIn: ''
     }
 
     this.openLoginDialog = this.openLoginDialog.bind(this)
@@ -30,6 +38,9 @@ class Header extends Component {
     this.onChange = this.onChange.bind(this)
     this.checkForEnter = this.checkForEnter.bind(this)
     this.toggleDrawer = this.toggleDrawer.bind(this)
+  }
+  componentDidMount() {
+    setTimeout(() => this.setState({ slideIn: 'slideIn'}), 500);
   }
   openLoginDialog() {
     this.setState({ open: !this.state.open })
@@ -63,7 +74,11 @@ class Header extends Component {
   }
   render() {
     return (
-      <header className="MainHeader">
+      <header className={`MainHeader ${this.state.slideIn}`}>
+        <div className="SantaHat">
+          <SantaHat className="SantaHat-Icon" style={{height: 30, width: 30}} />
+        </div>
+
         <LoginDialog 
           open={this.state.open}
           login={this.login}
