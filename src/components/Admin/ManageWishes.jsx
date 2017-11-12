@@ -87,7 +87,7 @@ class ManageWishes extends Component {
         <WishForm 
           addWish={this.addWish}
         />
-        {this.state.wishes.length && !this.state.loading === 0 ? 
+        {this.state.wishes.length === 0 && !this.state.loading ? 
         <h2>You don't seem to want anything for christmas. Have you been bad?</h2>
          : 
         <h2>Your wishes</h2>}

@@ -74,7 +74,7 @@ class User extends Component {
 
                 <section className="User-Wishes">
                     {this.state.wishes.length === 0 && !this.state.loading ? 
-                    <h2>{this.state.user.nickname} ønsker seg ingenting til jul :(</h2> 
+                    <h2>"{this.state.user.nickname}" ønsker seg ingenting til jul :(</h2> 
                     : null}
                     {this.state.wishes.map((wish, i) => {
                         return (

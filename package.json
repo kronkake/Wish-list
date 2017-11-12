@@ -2,6 +2,7 @@
   "name": "quiz-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://kronkake.github.io",
   "dependencies": {
     "firebase": "^4.6.0",
     "material-ui": "next",
