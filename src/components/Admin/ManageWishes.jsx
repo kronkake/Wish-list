@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
 import { LinearProgress } from 'material-ui/Progress'
 
 import { Firestore, Firebase } from '../../Data/Firebase'
@@ -53,6 +55,7 @@ class ManageWishes extends Component {
       url: url && url.includes('http') ? url : 'https://' + url
     })
       .then(() => {
+        this.init()
         console.log('Wish added')
       })
       .catch((error) => console.log(error))

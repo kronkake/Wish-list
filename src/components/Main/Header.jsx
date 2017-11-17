@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import './styles/Header.css'
 
+import { Link } from 'react-router-dom'
+
 import { Firebase } from '../../Data/Firebase'
 import LoginDialog from './LoginDialog'
 import SideDrawer from './Drawer'
@@ -75,9 +77,9 @@ class Header extends Component {
   render() {
     return (
       <header className={`MainHeader ${this.state.slideIn}`}>
-        <div className="SantaHat">
+        <Link to='/' className="SantaHat">
           <SantaHat className="SantaHat-Icon" style={{height: 30, width: 30}} />
-        </div>
+        </Link>
 
         <LoginDialog 
           open={this.state.open}

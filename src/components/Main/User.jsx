@@ -66,39 +66,40 @@ class User extends Component {
                     <div className={`User-image ${this.state.popIn}`}>
                         <img onLoad={this.applyTransition} src={this.state.user.profilePicUrl} />
                     </div>
-                    <div className="User-Content">
-                        <h1>{this.state.user.name}</h1>
-                        <span>{!this.state.loading ? 'A.K.A: ' + this.state.user.nickname : ''}</span>
-                    </div>
-                </header>
-
-                <section className="User-Wishes">
                     {this.state.wishes.length === 0 && !this.state.loading ? 
                     <h2>"{this.state.user.nickname}" ønsker seg ingenting til jul :(</h2> 
                     : null}
-                    {this.state.wishes.map((wish, i) => {
-                        return (
-                            <Card className="UserWishCard" elevation={0} key={i}>    
-                                <CardContent>
-                                    {`${i +1}. `}{wish.text}
-                                </CardContent>
-                                <CardActions>
-                                    {wish.url ? 
-                                        (<a target="_blank" href={wish.url}>
-                                            <Button color="primary" dense>Lenke</Button>
-                                        </a>) : null  
-                                    }
+                </header>
 
-                                    {wish.linkToPrisjakt ?  
-                                        (<a target="_blank" href={wish.linkToPrisjakt}>
-                                           <Button dense>Prisjakt</Button>
-                                        </a>) : null}
-                                </CardActions>
-                            </Card>
-                            ) 
-                        })
-                    }
-                </section>
+                {!this.state.loading ? 
+                    <section className="User-Wishes">
+                        <div className="User-Content">
+                            <h1>{this.state.user.name}</h1>
+                            <span>{!this.state.loading ? 'A.K.A: ' + this.state.user.nickname : ''}</span>
+                        </div>
+                        {this.state.wishes.map((wish, i) => {
+                            return (
+                                <Card className="UserWishCard" elevation={0} key={i}>    
+                                    <CardContent>
+                                        {`${i +1}. `}{wish.text}
+                                    </CardContent>
+                                    <CardActions>
+                                        {wish.url ? 
+                                            (<a target="_blank" href={wish.url}>
+                                                <Button color="primary" dense>Lenke</Button>
+                                            </a>) : null  
+                                        }
+
+                                        {wish.linkToPrisjakt ?  
+                                            (<a target="_blank" href={wish.linkToPrisjakt}>
+                                            <Button dense>Prisjakt</Button>
+                                            </a>) : null}
+                                    </CardActions>
+                                </Card>
+                                ) 
+                            })
+                        }
+                    </section> : null}
             </section>
     );
   }
