@@ -21,6 +21,7 @@ class User extends Component {
 
         this.getSnapShot = this.getSnapShot.bind(this)
         this.applyTransition = this.applyTransition.bind(this)
+        this.insertData = this.insertData.bind(this)
 
     }
     componentDidMount() {
@@ -33,9 +34,11 @@ class User extends Component {
     }
 
     applyTransition() {
-        this.setState({
-            popIn: 'PopIn'
-        })
+        setTimeout(() => {
+            this.setState({
+                popIn: 'PopIn'
+            })
+        }, 200)
     }
     getSnapShot() {
         let user = {}
@@ -51,12 +54,17 @@ class User extends Component {
         })
 
         Promise.all([userRefPromise, wishRefPromise])
-            .then(() => this.setState({ 
+            .then(() => this.insertData(user, wishes))
+    }
+    insertData(user, wishes) {
+        //Sync data insert with image popin animation
+        setTimeout(() => {
+            this.setState({ 
                 user: user, 
                 wishes: wishes, 
                 loading: false 
             })
-        )
+        }, 200)
     }
     render() {
         return (
