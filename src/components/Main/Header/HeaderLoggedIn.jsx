@@ -7,8 +7,6 @@ import Favourite from 'material-ui-icons/Favorite'
 import SignOut from 'material-ui-icons/ExitToApp'
 import Users from 'material-ui-icons/SupervisorAccount'
 
-import Button from 'material-ui/Button'
-import Divider from 'material-ui/Divider'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import { AdminUserId } from '../../../Data/Firebase'
 

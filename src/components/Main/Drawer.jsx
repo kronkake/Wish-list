@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import './styles/Drawer.css'
 
 import Drawer from 'material-ui/Drawer'
-import Button from 'material-ui/Button'
-import List from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 
 import HeaderLoggedIn from './Header/HeaderLoggedIn'

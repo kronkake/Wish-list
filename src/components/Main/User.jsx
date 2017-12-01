@@ -4,9 +4,9 @@ import { Firestore } from '../../Data/Firebase'
 
 import './styles/User.css'
 
-import Button from 'material-ui/Button'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
 import { LinearProgress } from 'material-ui/Progress'
+
+import UserCard from './UserCard'
 
 class User extends Component {
     constructor(props) {
@@ -66,36 +66,27 @@ class User extends Component {
                     <div className={`User-image ${this.state.popIn}`}>
                         <img onLoad={this.applyTransition} src={this.state.user.profilePicUrl} />
                     </div>
-                    {this.state.wishes.length === 0 && !this.state.loading ? 
-                    <h2>"{this.state.user.nickname}" ønsker seg ingenting til jul :(</h2> 
-                    : null}
                 </header>
 
                 {!this.state.loading ? 
                     <section className="User-Wishes">
                         <div className="User-Content">
                             <h1>{this.state.user.name}</h1>
-                            <span>{!this.state.loading ? 'A.K.A: ' + this.state.user.nickname : ''}</span>
+                            {!this.state.loading ? 'A.K.A: ' + this.state.user.nickname : ''}
+                            {this.state.wishes.length === 0 && !this.state.loading ? 
+                                <h2 className="User-Nickname">
+                                    "{this.state.user.nickname}" 
+                                    ønsker seg ingenting til jul :(
+                                </h2> 
+                            : null}
                         </div>
                         {this.state.wishes.map((wish, i) => {
                             return (
-                                <Card className="UserWishCard" elevation={0} key={i}>    
-                                    <CardContent>
-                                        {`${i +1}. `}{wish.text}
-                                    </CardContent>
-                                    <CardActions>
-                                        {wish.url ? 
-                                            (<a target="_blank" href={wish.url}>
-                                                <Button color="primary" dense>Lenke</Button>
-                                            </a>) : null  
-                                        }
-
-                                        {wish.linkToPrisjakt ?  
-                                            (<a target="_blank" href={wish.linkToPrisjakt}>
-                                            <Button dense>Prisjakt</Button>
-                                            </a>) : null}
-                                    </CardActions>
-                                </Card>
+                                <UserCard
+                                    wish={wish}
+                                    index={i}
+                                    key={i}
+                                />
                                 ) 
                             })
                         }

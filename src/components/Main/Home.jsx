@@ -28,9 +28,9 @@ class Home extends Component {
     this.getSnapShot()
   }
   applyTransition() {
-    this.setState({
-      popIn: 'PopIn'
-    })
+    setTimeout(()=> {
+      this.setState({ popIn: 'PopIn' })
+    }, 200)
   }
   getSnapShot() {
     this.userCollection.get().then((usersRef) => {

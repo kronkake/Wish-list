@@ -26,7 +26,7 @@ class ManageUsers extends Component {
     componentDidMount() {
         this.getSnapShot()
     }
-    getSnapShot() {
+    getSnapShot(callback = false) {
         this.userCollection.get().then((usersRef) => {
             const users = []
             usersRef.forEach((userRef) => {
@@ -35,9 +35,12 @@ class ManageUsers extends Component {
                 users.push(user)
             })
             this.setState({ users: users, loading: false })
+            if (callback) {
+                callback();
+            }
         })
     }
-    addUser(user) {
+    addUser(user, callback) {
         this.setState({ loading: true })
         FirebaseUserCreation.auth().createUserWithEmailAndPassword(user.email, user.password)
             .then((firebaseUser) => {
@@ -50,7 +53,7 @@ class ManageUsers extends Component {
                         profilePicUrl: user.profilePicUrl,
                         wishes: []
                      })
-                    .then(() => this.getSnapShot())
+                    .then(() => this.getSnapShot(callback))
                     .catch((error) => console.error(error))
         })
     }

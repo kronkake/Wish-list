@@ -18,11 +18,14 @@ class UserForm extends Component {
             profilePicUrl: ''
         }
 
-        this.AddUser = this.AddUser.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.AddUser = this.AddUser.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.clearInputFields = this.clearInputFields.bind(this)
     }
     AddUser() {
-        this.props.AddUser(this.state)
+        this.props.AddUser(this.state, this.clearInputFields)
+    }
+    clearInputFields() {
         this.setState({
             email: '',
             password: '',
@@ -32,7 +35,7 @@ class UserForm extends Component {
         })
     }
     handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value });
+        this.setState({ [event.target.id]: event.target.value })
     }
     render() {
         return (
