@@ -48,17 +48,26 @@ class ManageWishes extends Component {
     });
   }
   addWish({ index, linkToPrisjakt, text, url }) {
+    url = this.formatUrl(url)
+    linkToPrisjakt = this.formatUrl(linkToPrisjakt)
+
     this.wishesRef.add({ 
       index: this.state.wishes.length + 1, 
       linkToPrisjakt: linkToPrisjakt, 
       text: text, 
-      url: url && url.includes('http') ? url : 'https://' + url
+      url: url
     })
       .then(() => {
         this.init()
         console.log('Wish added')
-      })
+    })
       .catch((error) => console.log(error))
+  }
+  static formatUrl(url) {
+    if (url) {
+      return url.includes('http') ? url : 'https://' + url
+    }
+    return url
   }
   deleteWish(id) {
     this.wishesRef
