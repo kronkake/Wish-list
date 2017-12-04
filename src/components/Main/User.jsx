@@ -59,6 +59,8 @@ class User extends Component {
     insertData(user, wishes) {
         //Sync data insert with image popin animation
         setTimeout(() => {
+            wishes.sort((a, b) => { return (a.index - b.index) })
+            
             this.setState({ 
                 user: user, 
                 wishes: wishes, 

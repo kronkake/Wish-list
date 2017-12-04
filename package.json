@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "http://kronkake.github.io",
   "dependencies": {
-    "firebase": "^4.6.0",
+    "firebase": "^4.7.0",
     "material-ui": "next",
     "material-ui-icons": "^1.0.0-beta.17",
     "react": "^16.0.0",

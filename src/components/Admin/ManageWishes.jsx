@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-
 import { LinearProgress } from 'material-ui/Progress'
 
 import { Firestore, Firebase } from '../../Data/Firebase'
 
 import WishForm from './WishForm'
-import WishCard from './WishCard'
+import WishCardList from './WishCards/WishCardsList'
 
 class ManageWishes extends Component {
   constructor(props) {
@@ -23,6 +21,8 @@ class ManageWishes extends Component {
     this.addWish = this.addWish.bind(this)
     this.deleteWish = this.deleteWish.bind(this)
     this.editWish = this.editWish.bind(this)
+    this.onDragEnd = this.onDragEnd.bind(this)
+    this.onDragStart = this.onDragStart.bind(this)
 
     }
     componentDidMount() {
@@ -44,6 +44,7 @@ class ManageWishes extends Component {
         wish.id = wishRef.id
         wishes.push(wish)
       })
+      wishes.sort((a, b) => { return (a.index - b.index) })
       this.setState({ wishes: wishes, loading: false })
     });
   }
@@ -63,17 +64,24 @@ class ManageWishes extends Component {
     })
       .catch((error) => console.log(error))
   }
-  static formatUrl(url) {
+  formatUrl(url) {
     if (url) {
       return url.includes('http') ? url : 'https://' + url
     }
     return url
   }
   deleteWish(id) {
+    if (this.state.loading) {
+      return
+    }
+    this.setState({ loading: true })
     this.wishesRef
       .doc(id)
       .delete()
-      .then(() => console.log('Wish is deleted'))
+      .then(() => { 
+        this.setState({ loading: false })
+        console.log('Wish is deleted') 
+      })
       .catch((error) => console.log(error))
   }
   editWish({ index, linkToPrisjakt, text, url, id }) {
@@ -87,6 +95,52 @@ class ManageWishes extends Component {
       })
       .then(() => console.log('Wish is updated'))
       .catch((error) => console.log(error))
+  }
+  reOrderList(list, startIndex, endIndex) {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+  
+    result.forEach((item, index) => {
+      item.index = index + 1
+    })
+
+    return result;
+  }
+  createBatch(items, ref, firestore) {
+    const batch = firestore.batch()
+    items.forEach((item) => {
+      batch.update(ref.doc(item.id), { 'index': item.index })
+    })
+    return batch
+  }
+  onDragEnd(result) {
+    // dropped outside the list
+    if (!result.destination || this.state.loading) {
+      return
+    }
+
+    this.setState({ loading: true })
+
+    const items = this.reOrderList(
+      this.state.wishes,
+      result.source.index,
+      result.destination.index
+    )
+    
+    this.setState({ wishes: items })
+
+    const batch = this.createBatch(items, this.wishesRef, Firestore)
+    
+    batch.commit()
+      .then(response => this.setState({ loading: false }))
+      .then(error => console.error(error))
+
+  }
+  onDragStart() {
+    if (window.navigator.vibrate) {
+      window.navigator.vibrate(100);
+    }
   }
   render() {
     if (!this.props.LoggedIn) {
@@ -104,19 +158,16 @@ class ManageWishes extends Component {
          : 
         <h2>Your wishes</h2>}
         {this.state.loading ? <LinearProgress /> : null}
-        {
-          this.state.wishes.map((wish, i) => {
-            return <WishCard 
-              key={i}
-              editWish={this.editWish}
-              deleteWish={this.deleteWish}
-              wish={wish}
-            />
-          })
-        }
+        <WishCardList 
+          onDragEnd={this.onDragEnd}
+          onDragStart={this.onDragStart}
+          wishes={this.state.wishes}
+          editWish={this.editWish}
+          deleteWish={this.deleteWish}
+        />
       </section>
-    );
+    )
   }
 }
 
-export default ManageWishes;
+export default ManageWishes
