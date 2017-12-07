@@ -10,7 +10,6 @@ export const initFirestoreEventListeners = () => {
     authEventListener()
     userDataListener()
         .then((wishDataListeners))
-        .then((Store.dispatch({type: FINISHED_LOADING_WISHES})))
 }
 
 const userDataListener = () => {
@@ -22,11 +21,11 @@ const userDataListener = () => {
                 user.id = userRef.id 
                 users.push(user)
             })
-            resolve(users)
             Store.dispatch({
                 type: LOAD_INITIAL_USERS,
                 users: users
             })
+            resolve(users)
         })
     })
 

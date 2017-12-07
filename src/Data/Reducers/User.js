@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
             const users = [...state.users]
             const userIndex = users.findIndex(user => user.id === action.uid)
             if (userIndex) {
-                users[userIndex].wishes = action.data
+                users[userIndex].wishes = action.wishes
             }
             return {
                 users,

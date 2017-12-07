@@ -16,7 +16,8 @@ class ManageWishes extends Component {
 
     this.state = {
       wishes: [],
-      loading: true
+      loading: true,
+      userId: ''
     }
 
     this.addWish = this.addWish.bind(this)
@@ -28,6 +29,7 @@ class ManageWishes extends Component {
   }
   componentDidMount() {
     this.props.Auth.promise.then(() => {
+      this.setState({ userId: this.props.Auth.uid })
       this.wishesRef = Firestore.collection('users')
         .doc(this.props.Auth.uid)
         .collection('wishes')
@@ -133,6 +135,13 @@ class ManageWishes extends Component {
               <Redirect to='/' />
           )
     }
+    let user = this.props.User.users
+      .filter(user => user.id === this.state.userId)
+    let wishes = []
+    if (user[0]) {
+      wishes = user[0].wishes
+    }
+    //console.log(this.props.User.users.filter(user => user.id === this.state.userId))
     return (
       <section>
         <WishForm 
@@ -146,7 +155,7 @@ class ManageWishes extends Component {
         <WishCardList 
           onDragEnd={this.onDragEnd}
           onDragStart={this.onDragStart}
-          wishes={this.state.wishes}
+          wishes={wishes}
           editWish={this.editWish}
           deleteWish={this.deleteWish}
         />
