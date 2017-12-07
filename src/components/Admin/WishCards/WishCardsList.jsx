@@ -42,7 +42,7 @@ const WishCardList = ({ onDragEnd, onDragStart, wishes, editWish, deleteWish }) 
                                                 provided.draggableStyle,
                                                 snapshot.isDragging
                                             )}
-                                        {...provided.dragHandleProps}>
+                                            {...provided.dragHandleProps}>
                                             <WishCard 
                                                 editWish={editWish}
                                                 deleteWish={deleteWish}

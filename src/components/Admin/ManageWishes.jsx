@@ -8,6 +8,8 @@ import { Firestore, Firebase } from '../../Data/Firebase'
 import WishForm from './WishForm'
 import WishCardList from './WishCards/WishCardsList'
 
+import { connect } from 'react-redux'
+
 class ManageWishes extends Component {
   constructor(props) {
     super(props)
@@ -17,36 +19,19 @@ class ManageWishes extends Component {
       loading: true
     }
 
-    this.init = this.init.bind(this)
     this.addWish = this.addWish.bind(this)
     this.deleteWish = this.deleteWish.bind(this)
     this.editWish = this.editWish.bind(this)
     this.onDragEnd = this.onDragEnd.bind(this)
     this.onDragStart = this.onDragStart.bind(this)
 
-    }
-    componentDidMount() {
-    //Lifecycle methods does not trigger when passing props trough
-    //React-router. Should probably find a less hacky way to do this
-    Firebase.auth().onAuthStateChanged(
-      (user) => {
-        if (user) {
-          this.wishesRef = Firestore.collection('users').doc(user.uid).collection('wishes')
-          this.init()
-        }
-      })
   }
-  init() {
-    this.wishesRef.onSnapshot((wishRef) => {
-      const wishes = []
-      wishRef.forEach((wishRef) => {
-        const wish = wishRef.data()
-        wish.id = wishRef.id
-        wishes.push(wish)
-      })
-      wishes.sort((a, b) => { return (a.index - b.index) })
-      this.setState({ wishes: wishes, loading: false })
-    });
+  componentDidMount() {
+    this.props.Auth.promise.then(() => {
+      this.wishesRef = Firestore.collection('users')
+        .doc(this.props.Auth.uid)
+        .collection('wishes')
+    })
   }
   addWish({ index, linkToPrisjakt, text, url }) {
     url = this.formatUrl(url)
@@ -127,7 +112,7 @@ class ManageWishes extends Component {
       result.source.index,
       result.destination.index
     )
-    
+
     this.setState({ wishes: items })
 
     const batch = this.createBatch(items, this.wishesRef, Firestore)
@@ -143,7 +128,7 @@ class ManageWishes extends Component {
     }
   }
   render() {
-    if (!this.props.LoggedIn) {
+    if (!this.props.Auth.loggedIn && this.props.Auth.finishedAuth) {
           return (
               <Redirect to='/' />
           )
@@ -157,7 +142,7 @@ class ManageWishes extends Component {
         <h2>You don't seem to want anything for christmas. Have you been bad?</h2>
          : 
         <h2>Your wishes</h2>}
-        {this.state.loading ? <LinearProgress /> : null}
+        {this.props.loadingWishes ? <LinearProgress /> : null}
         <WishCardList 
           onDragEnd={this.onDragEnd}
           onDragStart={this.onDragStart}
@@ -170,4 +155,11 @@ class ManageWishes extends Component {
   }
 }
 
-export default ManageWishes
+export default connect(mapStateToProps)(ManageWishes)
+
+function mapStateToProps(state, ownProps) {
+  return {
+    Auth: state.auth,
+    User: state.user
+  }
+}

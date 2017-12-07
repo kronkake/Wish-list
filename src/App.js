@@ -39,12 +39,7 @@ class App extends Component {
         <main className="MainContentContainer">
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/manageWishes' render={() => 
-            <ManageWishes 
-              finishedAuth={this.state.finishedAuth} 
-              uid={this.state.uid} 
-              LoggedIn={this.state.loggedIn} />} 
-            />
+            <Route exact path='/manageWishes' component={ManageWishes} />
             <Route exact path='/manageUsers' render={() => <ManageUsers LoggedIn={this.state.loggedIn} />} />
             <Route path='/user/:id' component={User} />
           </Switch>
