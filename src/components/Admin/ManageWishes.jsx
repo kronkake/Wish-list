@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import { LinearProgress } from 'material-ui/Progress'
+import { FormControlLabel, FormGroup } from 'material-ui/Form';
+import Switch from 'material-ui/Switch'
+import Paper from 'material-ui/Paper'
 
-import { Firestore, Firebase } from '../../Data/Firebase'
+import { Firestore } from '../../Data/Firebase'
 
 import WishForm from './WishForm'
 import WishCardList from './WishCards/WishCardsList'
-
-import { connect } from 'react-redux'
 
 class ManageWishes extends Component {
   constructor(props) {
@@ -16,8 +17,9 @@ class ManageWishes extends Component {
 
     this.state = {
       wishes: [],
-      loading: true,
-      userId: ''
+      loading: false,
+      userId: '',
+      disableDragAndDrop: false
     }
 
     this.addWish = this.addWish.bind(this)
@@ -25,6 +27,7 @@ class ManageWishes extends Component {
     this.editWish = this.editWish.bind(this)
     this.onDragEnd = this.onDragEnd.bind(this)
     this.onDragStart = this.onDragStart.bind(this)
+    this.setDragAndDrop = this.setDragAndDrop.bind(this)
 
   }
   componentDidMount() {
@@ -40,13 +43,12 @@ class ManageWishes extends Component {
     linkToPrisjakt = this.formatUrl(linkToPrisjakt)
 
     this.wishesRef.add({ 
-      index: this.state.wishes.length + 1, 
+      index: this.props.User.wishes.length + 1, 
       linkToPrisjakt: linkToPrisjakt, 
       text: text, 
       url: url
     })
       .then(() => {
-        this.init()
         console.log('Wish added')
     })
       .catch((error) => console.log(error))
@@ -66,8 +68,8 @@ class ManageWishes extends Component {
       .doc(id)
       .delete()
       .then(() => { 
+        console.log('Wish is deleted')
         this.setState({ loading: false })
-        console.log('Wish is deleted') 
       })
       .catch((error) => console.log(error))
   }
@@ -110,7 +112,7 @@ class ManageWishes extends Component {
     this.setState({ loading: true })
 
     const items = this.reOrderList(
-      this.state.wishes,
+      this.props.User.wishes,
       result.source.index,
       result.destination.index
     )
@@ -126,49 +128,54 @@ class ManageWishes extends Component {
   }
   onDragStart() {
     if (window.navigator.vibrate) {
-      window.navigator.vibrate(100);
+      window.navigator.vibrate(100)
     }
   }
+  setDragAndDrop(event, checked) {
+    this.setState({ disableDragAndDrop: checked })
+  }
+
   render() {
     if (!this.props.Auth.loggedIn && this.props.Auth.finishedAuth) {
           return (
               <Redirect to='/' />
           )
     }
-    let user = this.props.User.users
-      .filter(user => user.id === this.state.userId)
-    let wishes = []
-    if (user[0]) {
-      wishes = user[0].wishes
-    }
-    //console.log(this.props.User.users.filter(user => user.id === this.state.userId))
     return (
       <section>
         <WishForm 
           addWish={this.addWish}
         />
-        {this.state.wishes.length === 0 && !this.state.loading ? 
+        <Paper style={{ padding:'16px' }}>
+          <FormGroup>
+            <FormControlLabel
+              label='Klikk for å slå av og på muligheten til å kunne rearrangere ønskene. Endring av ønsker fungerer ikke når rearrangering er aktivert'
+              control={
+                <Switch 
+                  checked={this.state.disableDragAndDrop}
+                  onChange={this.setDragAndDrop}
+                />
+              } 
+            />
+          </FormGroup>
+        </Paper>
+        {this.props.User.wishes === 0 && !this.props.User.loading ? 
         <h2>You don't seem to want anything for christmas. Have you been bad?</h2>
          : 
         <h2>Your wishes</h2>}
-        {this.props.loadingWishes ? <LinearProgress /> : null}
+        {this.props.User.loading || this.state.loading ? <LinearProgress /> : null}
         <WishCardList 
           onDragEnd={this.onDragEnd}
           onDragStart={this.onDragStart}
-          wishes={wishes}
+          wishes={this.props.User.wishes}
           editWish={this.editWish}
           deleteWish={this.deleteWish}
+          disableDragAndDrop={this.state.disableDragAndDrop}
         />
       </section>
     )
   }
 }
 
-export default connect(mapStateToProps)(ManageWishes)
+export default ManageWishes
 
-function mapStateToProps(state, ownProps) {
-  return {
-    Auth: state.auth,
-    User: state.user
-  }
-}

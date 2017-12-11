@@ -22,7 +22,7 @@ const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? '#BDBDBD' : 'none'
 });
 
-const WishCardList = ({ onDragEnd, onDragStart, wishes, editWish, deleteWish }) => {
+const WishCardList = ({ onDragEnd, onDragStart, wishes, editWish, deleteWish, disableDragAndDrop }) => {
     return (
         <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
             <Droppable droppableId="droppable">
@@ -33,7 +33,7 @@ const WishCardList = ({ onDragEnd, onDragStart, wishes, editWish, deleteWish }) 
                     {
                         wishes.map((wish, i) => {
                             return (
-                                <Draggable key={wish.id} draggableId={wish.id} >
+                                <Draggable isDragDisabled={!disableDragAndDrop} key={wish.id} draggableId={wish.id} >
                                     {(provided, snapshot) => (
                                     <div>
                                         <div
