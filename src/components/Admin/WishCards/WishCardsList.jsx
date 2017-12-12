@@ -6,21 +6,24 @@ import WishCard from '.././WishCard'
 
 // using some little inline style helpers to make the app look okay
 const grid = 8;
-const getItemStyle = (draggableStyle, isDragging) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  margin: `0 0 ${grid}px 0`,
-  cursor: isDragging ? 'grab' : 'auto',
+const getItemStyle = (draggableStyle, isDragging, disableDragAndDrop) => { 
+    draggableStyle.touchAction = disableDragAndDrop ? 'none' : 'auto'
+    return ({
+        // some basic styles to make the items look a bit nicer
+        userSelect: isDragging ? 'none' : 'all',
+        margin: `0 0 ${grid}px 0`,
+        cursor: isDragging ? 'grab' : 'auto',
+        touchAction: 'auto',
+        // change background colour if dragging
+        background: isDragging ? '#BDBDBD' : 'none',
+        // styles we need to apply on draggables
+        ...draggableStyle,
+    })
+} 
 
-  // change background colour if dragging
-  background: isDragging ? '#BDBDBD' : 'none',
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? '#BDBDBD' : 'none'
-});
+})
 
 const WishCardList = ({ onDragEnd, onDragStart, wishes, editWish, deleteWish, disableDragAndDrop }) => {
     return (
@@ -40,7 +43,8 @@ const WishCardList = ({ onDragEnd, onDragStart, wishes, editWish, deleteWish, di
                                             ref={provided.innerRef}
                                             style={getItemStyle(
                                                 provided.draggableStyle,
-                                                snapshot.isDragging
+                                                snapshot.isDragging,
+                                                disableDragAndDrop
                                             )}
                                             {...provided.dragHandleProps}>
                                             <WishCard 
