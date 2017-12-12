@@ -1,7 +1,7 @@
 import { LOAD_INITIAL_USERS } from '../Actions/User'
 import { LOAD_WISHES } from '../Actions/User'
 
-const initialState = { users: [], loadingUsers: true }
+const initialState = { users: {}, loadingUsers: true }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -11,11 +11,11 @@ const reducer = (state = initialState, action) => {
                 loadingUsers: false
             }
         case LOAD_WISHES:
-            const users = [...state.users]
-            const userIndex = users.findIndex(user => user.id === action.uid)
-            if (userIndex) {
-                users[userIndex].wishes = action.wishes
-                users[userIndex].loadingWishes = false
+            const users = Object.assign({}, state.users)
+            
+            if (users.hasOwnProperty(action.uid)) {
+                users[action.uid].wishes = action.wishes
+                users[action.uid].loadingWishes = false
             }
             return {
                 users,

@@ -159,7 +159,7 @@ class ManageWishes extends Component {
             />
           </FormGroup>
         </Paper>
-        {this.props.User.wishes === 0 && !this.props.User.loading ? 
+        {this.props.User.wishes.length === 0 && !this.props.User.loading ? 
         <h2>You don't seem to want anything for christmas. Have you been bad?</h2>
          : 
         <h2>Your wishes</h2>}

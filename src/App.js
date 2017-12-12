@@ -5,10 +5,10 @@ import { Switch, Route } from 'react-router-dom'
 import Header from './components/Main/Header'
 import Footer from './components/Main/Footer' 
 
-import ActiveUser from './components/Admin/containers/ActiveUser'
-import Home from './components/Main/Home'
+import ManageWishesContainer from './components/Admin/containers/ManageWishesContainer'
+import HomeContainer from './components/Main/containers/HomeContainer'
 import ManageUsers from './components/Admin/ManageUsers'
-import User from './components/Main/User'
+import UserContainer from './components/Main/containers/UserContainer'
 
 import { Firebase } from './Data/Firebase'
 
@@ -38,10 +38,10 @@ class App extends Component {
         <Header loggedIn={this.state.loggedIn} uid={this.state.uid}></Header>
         <main className="MainContentContainer">
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/manageWishes' component={ActiveUser} />
+            <Route exact path='/' component={HomeContainer} />
+            <Route exact path='/manageWishes' component={ManageWishesContainer} />
             <Route exact path='/manageUsers' render={() => <ManageUsers LoggedIn={this.state.loggedIn} />} />
-            <Route path='/user/:id' component={User} />
+            <Route path='/user/:id' component={UserContainer} />
           </Switch>
         </main>
         <Footer></Footer>

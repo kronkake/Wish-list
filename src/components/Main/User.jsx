@@ -14,83 +14,49 @@ class User extends Component {
 
         this.state ={
             loading: true,
-            wishes: [],
             user: {},
             popIn: ''
         }
 
-        this.getSnapShot = this.getSnapShot.bind(this)
         this.applyTransition = this.applyTransition.bind(this)
-        this.insertData = this.insertData.bind(this)
 
     }
     componentDidMount() {
-        const uid = this.props.match.params.id
-        if (uid) {
-            this.userRef = this.userCollection = Firestore.collection('users').doc(uid)
-            this.wishesRef = this.userRef.collection('wishes')
-            this.getSnapShot()
-        }
+        window.scrollTo(0, 0)
     }
-
     applyTransition() {
         setTimeout(() => {
             this.setState({
-                popIn: 'PopIn'
-            })
-        }, 200)
-    }
-    getSnapShot() {
-        let user = {}
-        let wishes = []
-
-        const userRefPromise = this.userRef.get().then((userDocument) => {
-          user = userDocument.data()
-        })
-        const wishRefPromise = this.wishesRef.get().then((wishCollection) => {
-            wishCollection.forEach((wish) => {
-                wishes.push(wish.data())
-            })
-        })
-
-        Promise.all([userRefPromise, wishRefPromise])
-            .then(() => this.insertData(user, wishes))
-    }
-    insertData(user, wishes) {
-        //Sync data insert with image popin animation
-        setTimeout(() => {
-            wishes.sort((a, b) => { return (a.index - b.index) })
-            
-            this.setState({ 
-                user: user, 
-                wishes: wishes, 
-                loading: false 
+                popIn: 'PopIn',
+                loading: false
             })
         }, 200)
     }
     render() {
+        const userData = this.props.userData
+        const wishes = this.props.userData.wishes
         return (
             <section className="User">
-                {this.state.loading ? <LinearProgress /> : null}
+                {userData.loading ? <LinearProgress /> : null}
                 <header className="User-Info">
                     <div className={`User-image ${this.state.popIn}`}>
-                        <img onLoad={this.applyTransition} src={this.state.user.profilePicUrl} />
+                        <img onLoad={this.applyTransition} src={userData.user.profilePicUrl} />
                     </div>
                 </header>
 
-                {!this.state.loading ? 
+                {!userData.loading && !this.state.loading ? 
                     <section className="User-Wishes">
                         <div className="User-Content">
-                            <h1>{this.state.user.name}</h1>
-                            {!this.state.loading ? 'A.K.A: ' + this.state.user.nickname : ''}
-                            {this.state.wishes.length === 0 && !this.state.loading ? 
+                            <h1>{userData.user.name}</h1>
+                            {!userData.loading ? 'A.K.A: ' + userData.user.nickname : ''}
+                            {wishes.length === 0 && !userData.loading ? 
                                 <h2 className="User-Nickname">
-                                    "{this.state.user.nickname}" 
+                                    "{userData.user.nickname}" 
                                     ønsker seg ingenting til jul :(
                                 </h2> 
                             : null}
                         </div>
-                        {this.state.wishes.map((wish, i) => {
+                        {wishes.map((wish, i) => {
                             return (
                                 <UserCard
                                     wish={wish}
@@ -102,8 +68,8 @@ class User extends Component {
                         }
                     </section> : null}
             </section>
-    );
-  }
+        )
+    }
 }
 
 export default User;

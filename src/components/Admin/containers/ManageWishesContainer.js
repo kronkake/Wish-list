@@ -4,18 +4,16 @@ import ManageWishes from '.././ManageWishes'
 const getActiveUser = (userData, auth) => {
     if (!auth) { return }
 
-    let user = userData.users
-        .filter(user => user.id === auth.uid)
-
-    let wishes = []
+    let user = {}
+    , wishes = []
     , loading = true
-    if (!user) { user = {} }
 
-    if (user.length > 0) {
-        wishes = user[0].wishes
-        loading = user[0].loadingWishes
-        user = user[0]
+    if (userData.users.hasOwnProperty([auth.uid])) {
+        let user = userData.users[auth.uid]
+        wishes = user.wishes
+        loading = user.loadingWishes
     }
+
     return {
         user,
         loading: loading,
@@ -30,8 +28,8 @@ const mapStateToProps = state => {
   }
 }
 
-const ActiveUser = connect(
+const ManageWishesContainer = connect(
   mapStateToProps
 )(ManageWishes)
 
-export default ActiveUser
+export default ManageWishesContainer

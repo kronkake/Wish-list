@@ -15,11 +15,11 @@ export const initFirestoreEventListeners = () => {
 const userDataListener = () => {
     return new Promise((resolve, reject) => {
         userCollection.onSnapshot((usersSnapshot) => {
-            const users = []
+            const users = {}
             usersSnapshot.forEach((userRef) => {
                 const user = userRef.data()
                 user.id = userRef.id 
-                users.push(user)
+                users[userRef.id] = user
             })
             Store.dispatch({
                 type: LOAD_INITIAL_USERS,
@@ -32,10 +32,8 @@ const userDataListener = () => {
 }
 
 const wishDataListeners = (users) => {
-    if (users.length === 0) { return }
-
-    users.forEach((user) => {
-        const wishCollection = userCollection.doc(user.id).collection('wishes')
+    for (const prop in users) {
+        const wishCollection = userCollection.doc(prop).collection('wishes')
         wishCollection.onSnapshot((wishSnapshot) => {
             const wishes = []
             wishSnapshot.forEach((wishRef) => {
@@ -49,10 +47,10 @@ const wishDataListeners = (users) => {
             Store.dispatch({
                 type: LOAD_WISHES,
                 wishes: wishes,
-                uid: user.id
+                uid: prop
             })
         })
-    })
+    }
 }
 
 const authEventListener = () => {
@@ -66,12 +64,12 @@ const authEventListener = () => {
     promise.then((user) => {
         if (user) {
             Store.dispatch({
-                  type: LOGIN,
-                  uid: user.uid,
-                 promise: promise
+                type: LOGIN,
+                uid: user.uid,
+                promise: promise
             })
          } else {
-              Store.dispatch({
+            Store.dispatch({
                 type: LOGOUT,
                 promise: promise
              })
