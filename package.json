@@ -1,5 +1,5 @@
 {
-  "name": "quiz-app",
+  "name": "Wishlist",
   "version": "0.1.0",
   "private": true,
   "homepage": "http://kronkake.github.io",
@@ -12,7 +12,7 @@
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14",
+    "react-scripts": "1.1.1",
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2"
   },

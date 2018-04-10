@@ -39,6 +39,7 @@
     position: relative;
     z-index: 20;
     opacity: 0;
+    will-change: transform;
     filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.12))
     drop-shadow(0 6px 30px rgba(0, 0, 0, 0.14))
     drop-shadow(0 8px 10px rgba(0, 0, 0, 0.12))
