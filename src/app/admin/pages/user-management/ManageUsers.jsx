@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Firestore, FirebaseUserCreation } from '../../../../Data/Firebase'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import { LinearProgress } from 'material-ui/Progress'
 
@@ -65,11 +66,13 @@ class ManageUsers extends Component {
             .catch((error) => console.log(error))
     }
     render() {
-        if (!this.props.LoggedIn) {
+        console.log(this.props)
+        const {loggedIn, finishedAuth} = this.props.Auth
+        if (!loggedIn && finishedAuth) {
             return (
                 <Redirect to='/' />
             )
-        }
+      }
         return (
             <div>
                 <h2>Here you can manage your users</h2>
@@ -91,4 +94,12 @@ class ManageUsers extends Component {
     }
 }
 
-export default ManageUsers;
+const mapStateToProps = state => {
+    return {
+      Auth: state.auth
+    }
+  }
+
+export default connect(
+    mapStateToProps
+  )(ManageUsers);

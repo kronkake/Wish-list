@@ -13,38 +13,19 @@ import UserContainer from './app/public/pages/user/UserContainer'
 import { Firebase } from './Data/Firebase'
 
 class App extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      loggedIn: true,
-      finishedAuth: false,
-      uid: ''
-    }
-  }
-  componentDidMount() {
-    Firebase.auth().onAuthStateChanged(
-      (user) => {
-          if (!user) {
-            this.setState({ loggedIn: false })
-          } else {
-            this.setState({ loggedIn: true, uid: user.uid, finishedAuth: true })
-          }
-      })
-  }
   render() {
     return (
       <div className="MainContainer">
-        <Header loggedIn={this.state.loggedIn} uid={this.state.uid}></Header>
+        <Header />
         <main className="MainContentContainer">
           <Switch>
             <Route exact path='/' component={HomeContainer} />
             <Route exact path='/manageWishes' component={ManageWishesContainer} />
-            <Route exact path='/manageUsers' render={() => <ManageUsers LoggedIn={this.state.loggedIn} />} />
+            <Route exact path='/manageUsers' component={ManageUsers} />
             <Route path='/user/:id' component={UserContainer} />
           </Switch>
         </main>
-        <Footer></Footer>
+        <Footer />
       </div>
     );
   }

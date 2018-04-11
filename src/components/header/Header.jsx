@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import './Header.css'
 
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { logOut, login, setLogin } from '../../Data/Actions/Auth'
 
 import { Firebase } from '../../Data/Firebase'
 import LoginDialog from './LoginDialog'
@@ -33,7 +36,7 @@ class Header extends Component {
       slideIn: ''
     }
 
-    this.openLoginDialog = this.openLoginDialog.bind(this)
+    this.toggleLoginDialog = this.toggleLoginDialog.bind(this)
     this.login = this.login.bind(this)
     this.loggedIn = this.loggedIn.bind(this)
     this.logOut = this.logOut.bind(this)
@@ -44,7 +47,7 @@ class Header extends Component {
   componentDidMount() {
     setTimeout(() => this.setState({ slideIn: 'slideIn'}), 500);
   }
-  openLoginDialog() {
+  toggleLoginDialog() {
     this.setState({ open: !this.state.open })
   }
   onChange(event) {
@@ -54,21 +57,28 @@ class Header extends Component {
     if (event.key === 'Enter') { this.login() }
   }
   login() {
+    const {setLogin} = this.props
     if (this.state.loading) { return }
     this.setState({ loading: true })
-    Firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
+    
+    const promise = Firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
       .then(this.loggedIn)
       .catch((error) => {
-        console.log(error); 
+        console.log(error) 
         this.setState({ message: error.code, loading: false })
       })
+    dispatch(setLogin(promise))
   }
   loggedIn(user) {
+    const {login} = this.props
+    dispatch(login(user))
     this.setState({ loading: false })
-    this.openLoginDialog()
+    this.toggleLoginDialog()
   }
   logOut() {
-    Firebase.auth().signOut().then(() => { })
+    const {logOut} = this.props
+    const promise = Firebase.auth().signOut().then(() => { })
+    dispatch(logOut(promise))
   }
   toggleDrawer() {
     const drawerOpen = this.state.drawerOpen
@@ -84,7 +94,7 @@ class Header extends Component {
         <LoginDialog 
           open={this.state.open}
           login={this.login}
-          openLoginDialog={this.openLoginDialog}
+          openLoginDialog={this.toggleLoginDialog}
           onChange={this.onChange}
           loading={this.state.loading}
           message={this.state.message}
@@ -96,14 +106,28 @@ class Header extends Component {
         <SideDrawer 
           open={this.state.drawerOpen}
           toggleDrawer={this.toggleDrawer}
-          openLoginDialog={this.openLoginDialog}
-          loggedIn={this.props.loggedIn} 
+          openLoginDialog={this.toggleLoginDialog}
+          loggedIn={this.state.loggedIn} 
           logOut={this.logOut}
-          uid={this.props.uid}
+          uid={this.state.uid}
         />
       </header>
     );
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return { Auth: state.auth }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logOut: promise => dispatch(logOut(promise)),
+    setLogin: promise => dispatch(setLogin(promise)),
+    login: promise => dispatch(login(promise))
+  }
+}
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(Header);
