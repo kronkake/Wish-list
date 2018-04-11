@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Firestore, FirebaseUserCreation } from '../../Data/Firebase'
+import { Firestore, FirebaseUserCreation } from '../../../../Data/Firebase'
 import { Redirect } from 'react-router-dom'
 
 import { LinearProgress } from 'material-ui/Progress'

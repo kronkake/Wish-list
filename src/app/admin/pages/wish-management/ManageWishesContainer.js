@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import ManageWishes from '.././ManageWishes'
+import ManageWishes from './ManageWishes'
 
 const getActiveUser = (userData, auth) => {
     if (!auth) { return }

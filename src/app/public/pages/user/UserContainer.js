@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import User from '.././User'
+import User from './User'
 
 const getSelectedUserData = (userData, ownProps) => {
     const uid = ownProps.match.params.id

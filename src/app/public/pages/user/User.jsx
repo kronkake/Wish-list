@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
-import { Firestore } from '../../Data/Firebase'
-
-import './styles/User.css'
+import './User.css'
 
 import { LinearProgress } from 'material-ui/Progress'
 

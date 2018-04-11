@@ -1,9 +1,8 @@
 import { connect } from 'react-redux'
-import Home from '.././Home'
+import Home from './Home'
 
 const convertToArray = (userData) => {
     let users = []
-    , loading = true
 
     for (const userIdProp in userData.users) {
         users.push(userData.users[userIdProp])

@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom'
 
-import { Firestore } from '../../Data/Firebase'
-
 import { LinearProgress } from 'material-ui/Progress'
 
-import './styles/Home.css'
+import './Home.css'
 
 class Home extends Component {
   constructor(props) {

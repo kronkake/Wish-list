@@ -8,9 +8,6 @@ import Dialog, {
 } from 'material-ui/Dialog';
 
 class DeleteWarning extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
         return (
             <Dialog open={this.props.open} onRequestClose={this.props.toggleConfirmation}>

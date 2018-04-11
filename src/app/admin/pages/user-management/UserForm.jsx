@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './styles/UserForm.css'
+import '../../../../components/form/form.css'
 
 import Button from 'material-ui/Button';
 import Input, { InputLabel } from 'material-ui/Input';

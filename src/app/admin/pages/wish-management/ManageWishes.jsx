@@ -6,7 +6,7 @@ import { FormControlLabel, FormGroup } from 'material-ui/Form';
 import Switch from 'material-ui/Switch'
 import Paper from 'material-ui/Paper'
 
-import { Firestore } from '../../Data/Firebase'
+import { Firestore } from '../../../../Data/Firebase'
 
 import WishForm from './WishForm'
 import WishCardList from './WishCards/WishCardsList'

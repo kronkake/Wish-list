@@ -8,7 +8,7 @@ import SignOut from 'material-ui-icons/ExitToApp'
 import Users from 'material-ui-icons/SupervisorAccount'
 
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
-import { AdminUserId } from '../../../Data/Firebase'
+import { AdminUserId } from '../../Data/Firebase'
 
 const HeaderLoggedIn = ({ logOut, uid, toggleDrawer }) => {
     return (

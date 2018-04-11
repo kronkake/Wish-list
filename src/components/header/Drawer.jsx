@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 
-import './styles/Drawer.css'
+import './Drawer.css'
 
 import Drawer from 'material-ui/Drawer'
 import Divider from 'material-ui/Divider'
 
-import HeaderLoggedIn from './Header/HeaderLoggedIn'
-import HeaderNormal from './Header/HeaderNormal'
+import HeaderLoggedIn from './HeaderLoggedIn'
+import HeaderNormal from './HeaderNormal'
 
 class SideDrawer extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         const LoggedInContent = (
             <section className="DrawerGrid">

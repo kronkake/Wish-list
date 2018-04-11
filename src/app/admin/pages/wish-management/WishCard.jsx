@@ -1,6 +1,6 @@
 import React, { Component }  from 'react'
 
-import './styles/WishCard.css'
+import './WishCard.css'
 
 import WishCardEditMode from './WishCards/WishCardEdit'
 import WishCardStandard from './WishCards/WishCardStandard'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './styles/UserCard.css'
+import './UserCard.css'
 
 import Paper from 'material-ui/Paper'
 import Button from 'material-ui/Button'
