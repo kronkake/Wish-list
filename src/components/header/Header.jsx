@@ -61,30 +61,30 @@ class Header extends Component {
     if (this.state.loading) { return }
     this.setState({ loading: true })
     
-    const promise = Firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
+    Firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
       .then(this.loggedIn)
       .catch((error) => {
         console.log(error) 
         this.setState({ message: error.code, loading: false })
       })
-    dispatch(setLogin(promise))
+    setLogin()
   }
   loggedIn(user) {
     const {login} = this.props
-    dispatch(login(user))
+    login(user)
     this.setState({ loading: false })
     this.toggleLoginDialog()
   }
   logOut() {
     const {logOut} = this.props
-    const promise = Firebase.auth().signOut().then(() => { })
-    dispatch(logOut(promise))
+    Firebase.auth().signOut().then(logOut)
   }
   toggleDrawer() {
     const drawerOpen = this.state.drawerOpen
     this.setState({ drawerOpen: !drawerOpen })
   }
   render() {
+    const {loggedIn, uid} = this.props.Auth
     return (
       <header className={`MainHeader ${this.state.slideIn}`}>
         <Link to='/' className="SantaHat">
@@ -107,9 +107,9 @@ class Header extends Component {
           open={this.state.drawerOpen}
           toggleDrawer={this.toggleDrawer}
           openLoginDialog={this.toggleLoginDialog}
-          loggedIn={this.state.loggedIn} 
+          loggedIn={loggedIn} 
           logOut={this.logOut}
-          uid={this.state.uid}
+          uid={uid}
         />
       </header>
     );
@@ -124,7 +124,7 @@ const mapDispatchToProps = dispatch => {
   return {
     logOut: promise => dispatch(logOut(promise)),
     setLogin: promise => dispatch(setLogin(promise)),
-    login: promise => dispatch(login(promise))
+    login: (promise, user) => dispatch(login(promise, user))
   }
 }
 

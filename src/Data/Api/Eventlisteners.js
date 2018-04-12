@@ -54,36 +54,22 @@ const wishDataListeners = (users) => {
 }
 
 const authEventListener = () => {
-    const promise = onAuthChange()
-
     Store.dispatch({
-        type: SET_LOGIN,
-        promise: promise
+        type: SET_LOGIN
     })
 
-    promise.then((user) => {
-        if (user) {
-            Store.dispatch({
-                type: LOGIN,
-                uid: user.uid,
-                promise: promise
-            })
-         } else {
-            Store.dispatch({
-                type: LOGOUT,
-                promise: promise
-             })
-         }
-     })
-}
-
-const onAuthChange = () => {
-    //We need to generate a promise for this shizz
-    return new Promise((resolve, reject) => {
-        Firebase.auth().onAuthStateChanged(
-            (user) => {
-                resolve(user)
-        })
+    Firebase.auth().onAuthStateChanged(
+        (user) => {
+            if (user) {
+                Store.dispatch({
+                    type: LOGIN,
+                    uid: user.uid,
+                })
+             } else {
+                Store.dispatch({
+                    type: LOGOUT,
+                 })
+             }
     })
 
 }

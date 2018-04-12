@@ -2,12 +2,12 @@ import * as Firebase from 'firebase'
 import 'firebase/firestore'
 
 const config = {
-    apiKey: 'AIzaSyAisrmpKWx3bl9YLOhcafWPcsOV9_8MLRs',
-    authDomain: 'my-awesome-quiz-application.firebaseapp.com',
-    databaseURL: 'https://my-awesome-quiz-application.firebaseio.com',
-    projectId: 'my-awesome-quiz-application',
-    storageBucket: 'my-awesome-quiz-application.appspot.com',
-    messagingSenderId: '256269976601'
+    apiKey: "AIzaSyCzMSGbhk1f6ufnEkLCRaQBZVk66jYuhLY",
+    authDomain: "api-project-600003414170.firebaseapp.com",
+    databaseURL: "https://api-project-600003414170.firebaseio.com",
+    projectId: "api-project-600003414170",
+    storageBucket: "api-project-600003414170.appspot.com",
+    messagingSenderId: "600003414170"
 }
 
 Firebase.initializeApp(config)
@@ -15,7 +15,7 @@ const FirebaseUserCreation = Firebase.initializeApp(config, 'UserCreation')
 
 const Firestore = Firebase.firestore()
 
-const AdminUserId = 'rFgtWZBLY8PLISnu7Z7EKIj3uJO2'
+const AdminUserId = 'eWYqiOzNNOcJVTVzezHh22FwE703'
 
 export { Firebase, Firestore, 
     FirebaseUserCreation, AdminUserId }

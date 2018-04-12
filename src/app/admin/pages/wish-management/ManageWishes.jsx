@@ -31,12 +31,10 @@ class ManageWishes extends Component {
 
   }
   componentDidMount() {
-    this.props.Auth.promise.then(() => {
       this.setState({ userId: this.props.Auth.uid })
       this.wishesRef = Firestore.collection('users')
         .doc(this.props.Auth.uid)
         .collection('wishes')
-    })
   }
   addWish({ index, linkToPrisjakt, text, url }) {
     url = this.formatUrl(url)
