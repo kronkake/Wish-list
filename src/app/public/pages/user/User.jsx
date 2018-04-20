@@ -37,11 +37,7 @@ class User extends Component {
         } = this.props
 
         if (!userData.loading && wishes.length === 0) {
-            return (
-                <h2 className="User-Nickname">
-                    "{userData.user.nickname}" ønsker seg ingenting til jul :(
-                </h2>
-            )
+            return <h2 className="User-Nickname">"{userData.user.nickname}" ønsker seg ingenting til jul :(</h2>
         } else {
             return null
         }
@@ -49,10 +45,7 @@ class User extends Component {
     renderPlaceholder({ opacity, ...rest }) {
         const profilePicUrl = rest.profilePicUrl
         return (
-            <animated.div
-                style={{ opacity }}
-                className="User-image-transitionLayer"
-            >
+            <animated.div style={{ opacity }} className="User-image-transitionLayer">
                 <img src={profilePicUrl} />
             </animated.div>
         )
@@ -60,10 +53,7 @@ class User extends Component {
 
     renderUserImage({ opacity }) {
         return (
-            <animated.div
-                style={{ opacity }}
-                className="User-image-transitionLayer"
-            >
+            <animated.div style={{ opacity }} className="User-image-transitionLayer">
                 <div className="User-image--placeholder" />
             </animated.div>
         )
@@ -90,25 +80,17 @@ class User extends Component {
                             toggleImage={this.toggleImage}
                             config={{ tension: 5, friction: 5 }}
                         >
-                            {loadingImage
-                                ? this.renderUserImage
-                                : this.renderPlaceholder}
+                            {loadingImage ? this.renderUserImage : this.renderPlaceholder}
                         </Transition>
                     </div>
                 </header>
-                <img
-                    src={userData.user.profilePicUrl}
-                    onLoad={this.toggleImage}
-                    style={{ display: 'none' }}
-                />
+                <img src={userData.user.profilePicUrl} onLoad={this.toggleImage} style={{ display: 'none' }} />
                 <section className="User-Wishes">
                     {!userData.loading && !this.state.loading ? (
                         <Fragment>
                             <div className="User-Content">
                                 <h1>{userData.user.name}</h1>
-                                {!userData.loading
-                                    ? 'A.K.A: ' + userData.user.nickname
-                                    : ''}
+                                {!userData.loading ? 'A.K.A: ' + userData.user.nickname : ''}
                                 {this.renderNoWishes()}
                             </div>
                             <Transition
@@ -119,13 +101,7 @@ class User extends Component {
                                 to={{ opacity: 1, transform: 'translateY(0)' }}
                                 keys={wishes.map(item => item.id)}
                             >
-                                {wishes.map((wish, i) => styles => (
-                                    <UserCard
-                                        wish={wish}
-                                        index={i}
-                                        style={styles}
-                                    />
-                                ))}
+                                {wishes.map((wish, i) => styles => <UserCard wish={wish} index={i} style={styles} />)}
                             </Transition>
                         </Fragment>
                     ) : null}

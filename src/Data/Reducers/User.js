@@ -1,8 +1,4 @@
-import {
-    LOAD_INITIAL_USERS,
-    FINISHED_LOADING_WISHES,
-    LOAD_WISHES
-} from '../Actions/User'
+import { LOAD_INITIAL_USERS, FINISHED_LOADING_WISHES, LOAD_WISHES } from '../Actions/User'
 
 const initialState = { users: {}, loadingUsers: true }
 

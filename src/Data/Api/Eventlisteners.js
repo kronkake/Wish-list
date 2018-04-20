@@ -1,9 +1,5 @@
 import Store from '../Store'
-import {
-    LOAD_INITIAL_USERS,
-    LOAD_WISHES,
-    FINISHED_LOADING_WISHES
-} from '../Actions/User'
+import { LOAD_INITIAL_USERS, LOAD_WISHES, FINISHED_LOADING_WISHES } from '../Actions/User'
 import { LOGIN, LOGOUT, SET_LOGIN } from '../Actions/Auth'
 
 import { Firestore, Firebase } from '../Firebase'

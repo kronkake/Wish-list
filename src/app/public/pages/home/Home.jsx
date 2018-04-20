@@ -27,28 +27,15 @@ class Home extends Component {
         return (
             <section>
                 {this.props.User.loading ? <LinearProgress /> : null}
-                <h1 className="text-center">
-                    Her kan du finne ønskelister for alle de kule folka!
-                </h1>
+                <h1 className="text-center">Her kan du finne ønskelister for alle de kule folka!</h1>
                 <section className="ContentContainer-Row">
                     {this.props.User.users.map((user, i) => {
                         return (
-                            <div
-                                className={`UserHome ${this.state.popIn}`}
-                                key={i}
-                            >
-                                <Link
-                                    to={`/user/${user.id}`}
-                                    className="UserHome-Image"
-                                >
-                                    <img
-                                        src={user.profilePicUrl}
-                                        onLoad={this.applyTransition}
-                                    />
+                            <div className={`UserHome ${this.state.popIn}`} key={i}>
+                                <Link to={`/user/${user.id}`} className="UserHome-Image">
+                                    <img src={user.profilePicUrl} onLoad={this.applyTransition} />
                                 </Link>
-                                <div className="UserHome-Content">
-                                    {user.name}
-                                </div>
+                                <div className="UserHome-Content">{user.name}</div>
                             </div>
                         )
                     })}

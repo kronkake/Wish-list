@@ -68,10 +68,7 @@ class Header extends Component {
         this.setState({ loading: true })
 
         Firebase.auth()
-            .signInWithEmailAndPassword(
-                this.state.username,
-                this.state.password
-            )
+            .signInWithEmailAndPassword(this.state.username, this.state.password)
             .then(this.loggedIn)
             .catch(error => {
                 console.log(error)
@@ -100,10 +97,7 @@ class Header extends Component {
         return (
             <header className={`MainHeader ${this.state.slideIn}`}>
                 <Link to="/" className="SantaHat">
-                    <SantaHat
-                        className="SantaHat-Icon"
-                        style={{ height: 30, width: 30 }}
-                    />
+                    <SantaHat className="SantaHat-Icon" style={{ height: 30, width: 30 }} />
                 </Link>
 
                 <LoginDialog

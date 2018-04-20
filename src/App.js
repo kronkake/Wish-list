@@ -18,16 +18,8 @@ class App extends Component {
                 <main className="MainContentContainer">
                     <Switch>
                         <Route exact path="/" component={HomeContainer} />
-                        <Route
-                            exact
-                            path="/manageWishes"
-                            component={ManageWishesContainer}
-                        />
-                        <Route
-                            exact
-                            path="/manageUsers"
-                            component={ManageUsers}
-                        />
+                        <Route exact path="/manageWishes" component={ManageWishesContainer} />
+                        <Route exact path="/manageUsers" component={ManageUsers} />
                         <Route path="/user/:id" component={UserContainer} />
                     </Switch>
                 </main>

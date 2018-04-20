@@ -109,11 +109,7 @@ class ManageWishes extends Component {
 
         this.setState({ loading: true })
 
-        const items = this.reOrderList(
-            this.props.User.wishes,
-            result.source.index,
-            result.destination.index
-        )
+        const items = this.reOrderList(this.props.User.wishes, result.source.index, result.destination.index)
 
         this.setState({ wishes: items })
 
@@ -144,27 +140,16 @@ class ManageWishes extends Component {
                     <FormGroup>
                         <FormControlLabel
                             label="Klikk for å slå av og på muligheten til å kunne rearrangere ønskene. Endring av ønsker fungerer ikke når rearrangering er aktivert"
-                            control={
-                                <Switch
-                                    checked={this.state.disableDragAndDrop}
-                                    onChange={this.setDragAndDrop}
-                                />
-                            }
+                            control={<Switch checked={this.state.disableDragAndDrop} onChange={this.setDragAndDrop} />}
                         />
                     </FormGroup>
                 </Paper>
-                {this.props.User.wishes.length === 0 &&
-                !this.props.User.loading ? (
-                    <h2>
-                        You don't seem to want anything for christmas. Have you
-                        been bad?
-                    </h2>
+                {this.props.User.wishes.length === 0 && !this.props.User.loading ? (
+                    <h2>You don't seem to want anything for christmas. Have you been bad?</h2>
                 ) : (
                     <h2>Your wishes</h2>
                 )}
-                {this.props.User.loading || this.state.loading ? (
-                    <LinearProgress />
-                ) : null}
+                {this.props.User.loading || this.state.loading ? <LinearProgress /> : null}
                 <WishCardList
                     onDragEnd={this.onDragEnd}
                     onDragStart={this.onDragStart}

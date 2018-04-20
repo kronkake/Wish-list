@@ -17,12 +17,7 @@ const UserCard = ({ name, nickname, profilePicUrl, deleteUser, id }) => {
                     <h4>Also goes by "{nickname}"</h4>
                 </section>
                 <section className="UserCard-Toolbar">
-                    <Button
-                        raised
-                        className="Form-margin"
-                        color="primary"
-                        onClick={() => deleteUser(id)}
-                    >
+                    <Button raised className="Form-margin" color="primary" onClick={() => deleteUser(id)}>
                         Delete
                     </Button>
                 </section>

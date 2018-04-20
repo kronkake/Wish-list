@@ -42,58 +42,31 @@ class UserForm extends Component {
             <form className="Form">
                 <FormControl>
                     <InputLabel htmlFor="Email">E-mail</InputLabel>
-                    <Input
-                        id="email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                    />
+                    <Input id="email" value={this.state.email} onChange={this.handleChange} />
                     <FormHelperText>Login mail</FormHelperText>
                 </FormControl>
                 <FormControl>
                     <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input
-                        id="password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                    />
+                    <Input id="password" value={this.state.password} onChange={this.handleChange} />
                     <FormHelperText>Password</FormHelperText>
                 </FormControl>
                 <FormControl>
                     <InputLabel htmlFor="Name">Name</InputLabel>
-                    <Input
-                        id="name"
-                        value={this.state.name}
-                        onChange={this.handleChange}
-                    />
+                    <Input id="name" value={this.state.name} onChange={this.handleChange} />
                     <FormHelperText>State your name</FormHelperText>
                 </FormControl>
                 <FormControl>
                     <InputLabel htmlFor="nickname">Nickname</InputLabel>
-                    <Input
-                        id="nickname"
-                        value={this.state.nickname}
-                        onChange={this.handleChange}
-                    />
+                    <Input id="nickname" value={this.state.nickname} onChange={this.handleChange} />
                     <FormHelperText>State your nickname</FormHelperText>
                 </FormControl>
                 <FormControl>
                     <InputLabel htmlFor="profilePicUrl">Picture url</InputLabel>
-                    <Input
-                        id="profilePicUrl"
-                        value={this.state.profilePicUrl}
-                        onChange={this.handleChange}
-                    />
-                    <FormHelperText>
-                        Enter a url for a profile picture.
-                    </FormHelperText>
+                    <Input id="profilePicUrl" value={this.state.profilePicUrl} onChange={this.handleChange} />
+                    <FormHelperText>Enter a url for a profile picture.</FormHelperText>
                 </FormControl>
 
-                <Button
-                    raised
-                    className="Form-margin"
-                    color="primary"
-                    onClick={this.AddUser}
-                >
+                <Button raised className="Form-margin" color="primary" onClick={this.AddUser}>
                     Add User
                 </Button>
             </form>

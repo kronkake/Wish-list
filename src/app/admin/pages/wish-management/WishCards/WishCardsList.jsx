@@ -25,29 +25,15 @@ const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? '#BDBDBD' : 'none'
 })
 
-const WishCardList = ({
-    onDragEnd,
-    onDragStart,
-    wishes,
-    editWish,
-    deleteWish,
-    disableDragAndDrop
-}) => {
+const WishCardList = ({ onDragEnd, onDragStart, wishes, editWish, deleteWish, disableDragAndDrop }) => {
     return (
         <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
             <Droppable droppableId="droppable">
                 {(provided, snapshot) => (
-                    <div
-                        ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}
-                    >
+                    <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
                         {wishes.map((wish, i) => {
                             return (
-                                <Draggable
-                                    isDragDisabled={!disableDragAndDrop}
-                                    key={wish.id}
-                                    draggableId={wish.id}
-                                >
+                                <Draggable isDragDisabled={!disableDragAndDrop} key={wish.id} draggableId={wish.id}>
                                     {(provided, snapshot) => (
                                         <div>
                                             <div
@@ -59,11 +45,7 @@ const WishCardList = ({
                                                 )}
                                                 {...provided.dragHandleProps}
                                             >
-                                                <WishCard
-                                                    editWish={editWish}
-                                                    deleteWish={deleteWish}
-                                                    wish={wish}
-                                                />
+                                                <WishCard editWish={editWish} deleteWish={deleteWish} wish={wish} />
                                             </div>
                                             {provided.placeholder}
                                         </div>

@@ -29,34 +29,16 @@ const WishCardEditMode = ({
                     <FormHelperText>Link to product</FormHelperText>
                 </FormControl>
                 <FormControl fullWidth>
-                    <InputLabel htmlFor="linkToPrisjakt">
-                        Link to Prisjakt
-                    </InputLabel>
-                    <Input
-                        id="linkToPrisjakt"
-                        value={linkToPrisjakt}
-                        onChange={handleChange}
-                    />
-                    <FormHelperText>
-                        Link to Prisjakt/Prisguide.no
-                    </FormHelperText>
+                    <InputLabel htmlFor="linkToPrisjakt">Link to Prisjakt</InputLabel>
+                    <Input id="linkToPrisjakt" value={linkToPrisjakt} onChange={handleChange} />
+                    <FormHelperText>Link to Prisjakt/Prisguide.no</FormHelperText>
                 </FormControl>
             </section>
             <section className="WishCard-Toolbar">
-                <Button
-                    raised
-                    className="Form-margin"
-                    color="primary"
-                    onClick={toggleEditMode}
-                >
+                <Button raised className="Form-margin" color="primary" onClick={toggleEditMode}>
                     Cancel
                 </Button>
-                <Button
-                    raised
-                    className="Form-margin"
-                    color="primary"
-                    onClick={_editWish}
-                >
+                <Button raised className="Form-margin" color="primary" onClick={_editWish}>
                     Save
                 </Button>
             </section>

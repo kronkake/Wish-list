@@ -32,18 +32,12 @@ class SideDrawer extends Component {
                 </div>
                 <div className="DrawerGrid-Content">
                     <Divider />
-                    <HeaderNormal
-                        toggleDrawer={this.props.toggleDrawer}
-                        openLoginDialog={this.props.openLoginDialog}
-                    />
+                    <HeaderNormal toggleDrawer={this.props.toggleDrawer} openLoginDialog={this.props.openLoginDialog} />
                 </div>
             </section>
         )
         return (
-            <Drawer
-                open={this.props.open}
-                onRequestClose={this.props.toggleDrawer}
-            >
+            <Drawer open={this.props.open} onRequestClose={this.props.toggleDrawer}>
                 {this.props.loggedIn ? LoggedInContent : LoggedOutContent}
             </Drawer>
         )
