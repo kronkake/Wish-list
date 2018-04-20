@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 import { Transition, animated } from 'react-spring'
 
@@ -88,21 +88,23 @@ class User extends Component {
                     </div>
                 </header>
                 <img src={userData.user.profilePicUrl} onLoad={this.toggleImage} style={{display: 'none'}}/>
-                {!userData.loading && !this.state.loading ? 
                     <section className="User-Wishes">
-                        <div className="User-Content">
-                            <h1>{userData.user.name}</h1>
-                            {!userData.loading ? 'A.K.A: ' + userData.user.nickname : ''}
-                            {this.renderNoWishes()}
-                        </div>
-                        <Transition 
-                            from={{ opacity: 0, transform: 'translateY(20%)' }} 
-                            to={{ opacity: 1, transform: 'translateY(0)' }} 
-                            keys={wishes.map(item => item.id)}>
-                            {wishes.map((wish, i) => styles => <UserCard wish={wish} index={i} style={styles}/>)}
-                        </Transition>
+                    {!userData.loading && !this.state.loading ? 
+                        <Fragment>
+                            <div className="User-Content">
+                                <h1>{userData.user.name}</h1>
+                                {!userData.loading ? 'A.K.A: ' + userData.user.nickname : ''}
+                                {this.renderNoWishes()}
+                            </div>
+                            <Transition 
+                                from={{ opacity: 0, transform: 'translateY(20%)' }} 
+                                to={{ opacity: 1, transform: 'translateY(0)' }} 
+                                keys={wishes.map(item => item.id)}>
+                                {wishes.map((wish, i) => styles => <UserCard wish={wish} index={i} style={styles}/>)}
+                            </Transition>
+                        </Fragment>
+                    : null}
                     </section>
-                : null}
             </section>
         )
     }
