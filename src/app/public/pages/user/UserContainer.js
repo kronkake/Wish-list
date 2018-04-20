@@ -10,8 +10,8 @@ const getSelectedUserData = (userData, ownProps) => {
 
     if (userData.users.hasOwnProperty(uid)) {
         user = userData.users[uid]
-        wishes = user.wishes
-        loading = user.loadingUsers
+        wishes = user.wishes || []
+        loading = user.loadingWishes
     }
 
     return {

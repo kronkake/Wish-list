@@ -1,5 +1,5 @@
 import Store from '../Store'
-import { LOAD_INITIAL_USERS, LOAD_WISHES } from '../Actions/User'
+import { LOAD_INITIAL_USERS, LOAD_WISHES, FINISHED_LOADING_WISHES } from '../Actions/User'
 import { LOGIN, LOGOUT, SET_LOGIN } from '../Actions/Auth'
 
 import { Firestore, Firebase } from '../Firebase'
@@ -20,6 +20,7 @@ const userDataListener = () => {
                 const user = userRef.data()
                 user.id = userRef.id 
                 users[userRef.id] = user
+                users[userRef.id].loadingWishes = true
             })
             Store.dispatch({
                 type: LOAD_INITIAL_USERS,

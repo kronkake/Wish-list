@@ -3,9 +3,9 @@ import React from 'react'
 import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 
-const UserCard = ({ index, wish: { text, url, linkToPrisjakt } }) => {
+const UserCard = ({ index, style, wish: { text, url, linkToPrisjakt } }) => {
     return (
-        <Card className="UserWishCard" elevation={0}>
+        <Card style={style} className="UserWishCard" elevation={0}>
             <CardContent>
                 {`${index + 1}. `}{text}
             </CardContent>

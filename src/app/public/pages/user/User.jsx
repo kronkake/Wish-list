@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { Transition, animated } from 'react-spring'
+
 import './User.css'
 
 import { LinearProgress } from 'material-ui/Progress'
@@ -11,60 +13,96 @@ class User extends Component {
         super(props)
 
         this.state ={
-            loading: true,
+            loading: false,
             user: {},
-            popIn: ''
+            loadingImage: true
         }
 
-        this.applyTransition = this.applyTransition.bind(this)
+        this.toggleImage = this.toggleImage.bind(this)
 
     }
     componentDidMount() {
         window.scrollTo(0, 0)
+
     }
-    applyTransition() {
+    toggleImage() {
         setTimeout(() => {
             this.setState({
-                popIn: 'PopIn',
-                loading: false
+                loadingImage: false
             })
-        }, 200)
+        }, 0)
     }
+    renderNoWishes() {
+        const {userData, userData: { wishes }} = this.props
+
+        if (!userData.loading && wishes.length === 0) {
+            return (
+                <h2 className="User-Nickname">
+                    "{userData.user.nickname}" 
+                    ønsker seg ingenting til jul :(
+                </h2> 
+            )
+        }
+        else {
+            return null
+        }
+    }
+    renderPlaceholder({opacity, ...rest}) {
+        const profilePicUrl = rest.profilePicUrl
+        return (
+            <animated.div style={{opacity}} className='User-image-transitionLayer'>
+                <img src={profilePicUrl} />
+            </animated.div>
+        )
+    }
+
+    renderUserImage({opacity}) {
+        return (
+            <animated.div style={{opacity}} className='User-image-transitionLayer'>
+                <div className='User-image--placeholder'/>
+            </animated.div>
+        )
+    }
+
     render() {
-        const userData = this.props.userData
-        const wishes = this.props.userData.wishes
+        const {userData, userData: { wishes }} = this.props
+        const {loadingImage} = this.state
+
         return (
             <section className="User">
                 {userData.loading ? <LinearProgress /> : null}
                 <header className="User-Info">
-                    <div className={`User-image ${this.state.popIn}`}>
-                        <img onLoad={this.applyTransition} src={userData.user.profilePicUrl} />
+                    <div className='User-image'>
+                        <Transition
+                            native
+                            from={{opacity: 0}} 
+                            enter={{opacity: 1}}
+                            leave={{opacity: 0}}
+                            profilePicUrl={userData.user.profilePicUrl}
+                            toggleImage={this.toggleImage}
+                            config={{ tension: 5, friction: 5 }}
+
+                        >
+                        {loadingImage ? this.renderUserImage : this.renderPlaceholder}
+                        </Transition>
                     </div>
                 </header>
-
+                <img src={userData.user.profilePicUrl} onLoad={this.toggleImage} style={{display: 'none'}}/>
                 {!userData.loading && !this.state.loading ? 
                     <section className="User-Wishes">
                         <div className="User-Content">
                             <h1>{userData.user.name}</h1>
                             {!userData.loading ? 'A.K.A: ' + userData.user.nickname : ''}
-                            {wishes.length === 0 && !userData.loading ? 
-                                <h2 className="User-Nickname">
-                                    "{userData.user.nickname}" 
-                                    ønsker seg ingenting til jul :(
-                                </h2> 
-                            : null}
+                            {this.renderNoWishes()}
                         </div>
-                        {wishes.map((wish, i) => {
-                            return (
-                                <UserCard
-                                    wish={wish}
-                                    index={i}
-                                    key={i}
-                                />
-                                ) 
-                            })
-                        }
-                    </section> : null}
+                        <Transition 
+                            from={{ opacity: 0, transform: 'translateY(20%)' }} 
+                            to={{ opacity: 1, transform: 'translateY(0)' }} 
+                            keys={wishes.map(item => item.id)}>
+                            {wishes.map((wish, i) => styles => <UserCard wish={wish} index={i} style={styles}/>)}
+                        </Transition>
+                    </section>
+                : null}
             </section>
         )
     }

@@ -12,9 +12,3 @@ export const loadWishes = (wishes, uid) => ({
     data: wishes,
     userId: uid
 })
-
-export const FINISHED_LOADING_WISHES = 'FINISHED LOADING WISHES'
-
-export const setWishes = () => ({
-    type: LOAD_WISHES
-})

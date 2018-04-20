@@ -10,8 +10,6 @@ import ManageUsers from './app/admin/pages/user-management/ManageUsers'
 import HomeContainer from './app/public/pages/home/HomeContainer'
 import UserContainer from './app/public/pages/user/UserContainer'
 
-import { Firebase } from './Data/Firebase'
-
 class App extends Component {
   render() {
     return (
