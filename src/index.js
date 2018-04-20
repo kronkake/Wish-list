@@ -21,7 +21,8 @@ ReactDOM.render(
                 <App />
             </Provider>
         </MuiThemeProvider>
-    </HashRouter>, 
-    document.getElementById('root'))
+    </HashRouter>,
+    document.getElementById('root')
+)
 
 registerServiceWorker()

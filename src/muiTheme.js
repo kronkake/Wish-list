@@ -1,10 +1,10 @@
-import { createMuiTheme } from 'material-ui/styles';
-import red from 'material-ui/colors/red';
+import { createMuiTheme } from 'material-ui/styles'
+import red from 'material-ui/colors/red'
 
 const theme = createMuiTheme({
     palette: {
-      primary: red
+        primary: red
     }
-  });
+})
 
-  export default theme
+export default theme

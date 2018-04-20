@@ -13,7 +13,7 @@ class SideDrawer extends Component {
         const LoggedInContent = (
             <section className="DrawerGrid">
                 <div className="DrawerGrid-Header">
-                    <div className="DrawerGrid-ImagePlacerholder"></div>
+                    <div className="DrawerGrid-ImagePlacerholder" />
                 </div>
                 <div className="DrawerGrid-Content">
                     <Divider />
@@ -21,18 +21,18 @@ class SideDrawer extends Component {
                         logOut={this.props.logOut}
                         uid={this.props.uid}
                         toggleDrawer={this.props.toggleDrawer}
-                     />
+                    />
                 </div>
             </section>
         )
         const LoggedOutContent = (
             <section className="DrawerGrid">
                 <div className="DrawerGrid-Header">
-                    <div className="DrawerGrid-ImagePlacerholder"></div>
+                    <div className="DrawerGrid-ImagePlacerholder" />
                 </div>
                 <div className="DrawerGrid-Content">
                     <Divider />
-                    <HeaderNormal 
+                    <HeaderNormal
                         toggleDrawer={this.props.toggleDrawer}
                         openLoginDialog={this.props.openLoginDialog}
                     />
@@ -40,10 +40,13 @@ class SideDrawer extends Component {
             </section>
         )
         return (
-            <Drawer open={this.props.open} onRequestClose={this.props.toggleDrawer}>
+            <Drawer
+                open={this.props.open}
+                onRequestClose={this.props.toggleDrawer}
+            >
                 {this.props.loggedIn ? LoggedInContent : LoggedOutContent}
             </Drawer>
-        );
+        )
     }
 }
 

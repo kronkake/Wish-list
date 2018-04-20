@@ -4,9 +4,9 @@ import User from './User'
 const getSelectedUserData = (userData, ownProps) => {
     const uid = ownProps.match.params.id
 
-    let user = {}
-    , wishes = []
-    , loading = true
+    let user = {},
+        wishes = [],
+        loading = true
 
     if (userData.users.hasOwnProperty(uid)) {
         user = userData.users[uid]
@@ -22,13 +22,11 @@ const getSelectedUserData = (userData, ownProps) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    userData: getSelectedUserData(state.user, ownProps)
-  }
+    return {
+        userData: getSelectedUserData(state.user, ownProps)
+    }
 }
 
-const UserContainer = connect(
-  mapStateToProps
-)(User)
+const UserContainer = connect(mapStateToProps)(User)
 
 export default UserContainer

@@ -1,23 +1,29 @@
 import React from 'react'
 
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button'
+import TextField from 'material-ui/TextField'
 import { CircularProgress } from 'material-ui/Progress'
 import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog';
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
+} from 'material-ui/Dialog'
 
-const LoginDialog = ({ open, login, openLoginDialog, onChange, message, loading, checkForEnter }) => {
+const LoginDialog = ({
+    open,
+    login,
+    openLoginDialog,
+    onChange,
+    message,
+    loading,
+    checkForEnter
+}) => {
     return (
-            <Dialog open={open} onRequestClose={openLoginDialog}>
-                <DialogTitle>Log in</DialogTitle>
-                <DialogContent>
-                <DialogContentText>
-                    {message}
-                </DialogContentText>
+        <Dialog open={open} onRequestClose={openLoginDialog}>
+            <DialogTitle>Log in</DialogTitle>
+            <DialogContent>
+                <DialogContentText>{message}</DialogContentText>
                 <TextField
                     autoFocus
                     margin="dense"
@@ -37,16 +43,16 @@ const LoginDialog = ({ open, login, openLoginDialog, onChange, message, loading,
                     onKeyPress={checkForEnter}
                     fullWidth
                 />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={openLoginDialog} color="default">
-                        Cancel
-                    </Button>
-                    <Button onClick={login} size={50} color="primary">
-                        {loading ? <CircularProgress /> : 'Log in'}
-                    </Button>
-                </DialogActions>
-            </Dialog>
-    );
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={openLoginDialog} color="default">
+                    Cancel
+                </Button>
+                <Button onClick={login} size={50} color="primary">
+                    {loading ? <CircularProgress /> : 'Log in'}
+                </Button>
+            </DialogActions>
+        </Dialog>
+    )
 }
-export default LoginDialog;
+export default LoginDialog

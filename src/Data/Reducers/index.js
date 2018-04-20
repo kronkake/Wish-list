@@ -5,4 +5,4 @@ import auth from './Auth'
 export default combineReducers({
     user,
     auth
-});
+})

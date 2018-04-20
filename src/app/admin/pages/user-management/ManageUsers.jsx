@@ -28,78 +28,76 @@ class ManageUsers extends Component {
         this.getSnapShot()
     }
     getSnapShot(callback = false) {
-        this.userCollection.get().then((usersRef) => {
+        this.userCollection.get().then(usersRef => {
             const users = []
-            usersRef.forEach((userRef) => {
+            usersRef.forEach(userRef => {
                 const user = userRef.data()
-                user.id = userRef.id 
+                user.id = userRef.id
                 users.push(user)
             })
             this.setState({ users: users, loading: false })
             if (callback) {
-                callback();
+                callback()
             }
         })
     }
     addUser(user, callback) {
         this.setState({ loading: true })
-        FirebaseUserCreation.auth().createUserWithEmailAndPassword(user.email, user.password)
-            .then((firebaseUser) => {
+        FirebaseUserCreation.auth()
+            .createUserWithEmailAndPassword(user.email, user.password)
+            .then(firebaseUser => {
                 FirebaseUserCreation.auth().signOut()
                 this.userCollection
                     .doc(firebaseUser.uid)
-                    .set({ 
+                    .set({
                         name: user.name,
                         nickname: user.nickname,
                         profilePicUrl: user.profilePicUrl,
                         wishes: []
-                     })
+                    })
                     .then(() => this.getSnapShot(callback))
-                    .catch((error) => console.error(error))
-        })
+                    .catch(error => console.error(error))
+            })
     }
     deleteUser(id) {
         this.userCollection
             .doc(id)
             .delete()
             .then(() => console.log('User is deleted'))
-            .catch((error) => console.log(error))
+            .catch(error => console.log(error))
     }
     render() {
-        console.log(this.props)
-        const {loggedIn, finishedAuth} = this.props.Auth
+        const { loggedIn, finishedAuth } = this.props.Auth
         if (!loggedIn && finishedAuth) {
-            return (
-                <Redirect to='/' />
-            )
-      }
+            return <Redirect to="/" />
+        }
         return (
             <div>
                 <h2>Here you can manage your users</h2>
-                <UserForm AddUser={this.addUser}></UserForm>
+                <UserForm AddUser={this.addUser} />
                 <h2>Existing Users</h2>
                 {this.state.loading ? <LinearProgress /> : null}
                 {this.state.users.map((user, i) => {
-                        return <UserCard 
-                            key={i} 
+                    return (
+                        <UserCard
+                            key={i}
                             nickname={user.nickname}
                             name={user.name}
                             profilePicUrl={user.profilePicUrl}
                             id={user.id}
-                            deleteUser={this.deleteUser} />
-                        })
-                    }
+                            deleteUser={this.deleteUser}
+                        />
+                    )
+                })}
             </div>
-        );
+        )
     }
 }
 
 const mapStateToProps = state => {
     return {
-      Auth: state.auth
+        Auth: state.auth
     }
-  }
+}
 
-export default connect(
-    mapStateToProps
-  )(ManageUsers);
+export default connect(mapStateToProps)(ManageUsers)

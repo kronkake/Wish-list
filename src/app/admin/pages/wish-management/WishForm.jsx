@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 import '../../../../components/form/form.css'
 
-import Button from 'material-ui/Button';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import Button from 'material-ui/Button'
+import Input, { InputLabel } from 'material-ui/Input'
+import { FormControl, FormHelperText } from 'material-ui/Form'
 
 class WishForm extends Component {
     constructor(props) {
@@ -17,8 +17,8 @@ class WishForm extends Component {
             index: ''
         }
 
-        this.addWish = this.addWish.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.addWish = this.addWish.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
     addWish() {
         this.props.addWish(this.state)
@@ -31,32 +31,55 @@ class WishForm extends Component {
         })
     }
     handleChange(event) {
-        this.setState({ [event.target.id]: event.target.value });
+        this.setState({ [event.target.id]: event.target.value })
     }
     render() {
         return (
             <form className="Form">
-                <FormControl >
+                <FormControl>
                     <InputLabel htmlFor="text">text</InputLabel>
-                    <Input fullWidth multiline={true} id="text" value={this.state.text} onChange={this.handleChange} />
+                    <Input
+                        fullWidth
+                        multiline={true}
+                        id="text"
+                        value={this.state.text}
+                        onChange={this.handleChange}
+                    />
                     <FormHelperText>State your wish</FormHelperText>
                 </FormControl>
                 <FormControl>
                     <InputLabel htmlFor="url">Lenke</InputLabel>
-                    <Input id="url" value={this.state.url} onChange={this.handleChange} />
+                    <Input
+                        id="url"
+                        value={this.state.url}
+                        onChange={this.handleChange}
+                    />
                     <FormHelperText>Link to product</FormHelperText>
                 </FormControl>
                 <FormControl>
-                    <InputLabel htmlFor="linkToPrisjakt">Link to Prisjakt</InputLabel>
-                    <Input id="linkToPrisjakt" value={this.state.linkToPrisjakt} onChange={this.handleChange} />
-                    <FormHelperText>Link to Prisjakt/Prisguide.no</FormHelperText>
+                    <InputLabel htmlFor="linkToPrisjakt">
+                        Link to Prisjakt
+                    </InputLabel>
+                    <Input
+                        id="linkToPrisjakt"
+                        value={this.state.linkToPrisjakt}
+                        onChange={this.handleChange}
+                    />
+                    <FormHelperText>
+                        Link to Prisjakt/Prisguide.no
+                    </FormHelperText>
                 </FormControl>
-                <Button raised className="Form-margin" color="primary" onClick={this.addWish}>
+                <Button
+                    raised
+                    className="Form-margin"
+                    color="primary"
+                    onClick={this.addWish}
+                >
                     Add Wish
                 </Button>
             </form>
-        );
+        )
     }
 }
 
-export default WishForm;
+export default WishForm

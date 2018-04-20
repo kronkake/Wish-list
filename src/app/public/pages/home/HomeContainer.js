@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Home from './Home'
 
-const convertToArray = (userData) => {
+const convertToArray = userData => {
     let users = []
 
     for (const userIdProp in userData.users) {
@@ -10,18 +10,16 @@ const convertToArray = (userData) => {
 
     return {
         users,
-        loading: userData.loadingUsers,
+        loading: userData.loadingUsers
     }
 }
 
 const mapStateToProps = state => {
-  return {
-    User: convertToArray(state.user)
-  }
+    return {
+        User: convertToArray(state.user)
+    }
 }
 
-const HomeContainer = connect(
-  mapStateToProps
-)(Home)
+const HomeContainer = connect(mapStateToProps)(Home)
 
 export default HomeContainer

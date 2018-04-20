@@ -1,6 +1,6 @@
 export const LOAD_INITIAL_USERS = 'LOAD INITIAL USERS'
 
-export const loadUsers = (user) => ({
+export const loadUsers = user => ({
     type: LOAD_INITIAL_USERS,
     data: user
 })

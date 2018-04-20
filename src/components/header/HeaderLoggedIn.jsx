@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -12,44 +12,50 @@ import { AdminUserId } from '../../Data/Firebase'
 
 const HeaderLoggedIn = ({ logOut, uid, toggleDrawer }) => {
     return (
-            <List>
-                <Link to="/" onClick={toggleDrawer}>
-                    <ListItem button>
+        <List>
+            <Link to="/" onClick={toggleDrawer}>
+                <ListItem button>
                     <ListItemIcon>
                         <Home />
                     </ListItemIcon>
-                        <ListItemText primary="Home" />              
-                    </ListItem>
-                </Link>
-            
-                <Link to="/manageWishes" onClick={toggleDrawer}>
-                    <ListItem button>
+                    <ListItemText primary="Home" />
+                </ListItem>
+            </Link>
+
+            <Link to="/manageWishes" onClick={toggleDrawer}>
+                <ListItem button>
                     <ListItemIcon>
                         <Favourite />
                     </ListItemIcon>
-                        <ListItemText primary="Manage wishes" />
-                    </ListItem>
-                </Link>
+                    <ListItemText primary="Manage wishes" />
+                </ListItem>
+            </Link>
 
-                {AdminUserId === uid ?      
-                    <Link to="/manageUsers" onClick={toggleDrawer}>           
-                        <ListItem button>
+            {AdminUserId === uid ? (
+                <Link to="/manageUsers" onClick={toggleDrawer}>
+                    <ListItem button>
                         <ListItemIcon>
                             <Users />
                         </ListItemIcon>
-                            <ListItemText primary="Manage Users" />
-                        </ListItem>
-                     </Link>
-                : null}
-                
-                <ListItem button onClick={() => { toggleDrawer(); logOut()}} >
+                        <ListItemText primary="Manage Users" />
+                    </ListItem>
+                </Link>
+            ) : null}
+
+            <ListItem
+                button
+                onClick={() => {
+                    toggleDrawer()
+                    logOut()
+                }}
+            >
                 <ListItemIcon>
                     <SignOut />
                 </ListItemIcon>
                 <ListItemText primary="Log out" />
-                </ListItem>
-            </List>
-    );
-  }
+            </ListItem>
+        </List>
+    )
+}
 
 export default HeaderLoggedIn

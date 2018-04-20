@@ -1,4 +1,4 @@
-import React, { Component }  from 'react'
+import React, { Component } from 'react'
 
 import './WishCard.css'
 
@@ -20,9 +20,8 @@ class WishCard extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.toggleConfirmation = this.toggleConfirmation.bind(this)
         this.deleteWish = this.deleteWish.bind(this)
-
     }
-    deleteWish(confirmation)  {
+    deleteWish(confirmation) {
         if (confirmation) {
             this.props.deleteWish(this.state.wish.id)
             this.setState({ confirmationDialogOpen: false })
@@ -43,17 +42,17 @@ class WishCard extends Component {
     }
     render() {
         if (this.state.editMode) {
-            return ( 
+            return (
                 <WishCardEditMode
                     deleteWish={this.deleteWish}
                     editWish={this.props.editWish}
                     toggleEditMode={this.toggleEditMode}
                     handleChange={this.handleChange}
                     wish={this.state.wish}
-                 />
+                />
             )
         } else {
-            return(
+            return (
                 <section>
                     <DeleteWarning
                         open={this.state.confirmationDialogOpen}
@@ -66,9 +65,9 @@ class WishCard extends Component {
                         wish={this.state.wish}
                     />
                 </section>
-            )   
+            )
         }
     }
 }
 
-export default WishCard;
+export default WishCard

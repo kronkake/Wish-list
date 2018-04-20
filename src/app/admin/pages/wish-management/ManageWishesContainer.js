@@ -2,11 +2,13 @@ import { connect } from 'react-redux'
 import ManageWishes from './ManageWishes'
 
 const getActiveUser = (userData, auth) => {
-    if (!auth) { return }
+    if (!auth) {
+        return
+    }
 
-    let user = {}
-    , wishes = []
-    , loading = true
+    let user = {},
+        wishes = [],
+        loading = true
 
     if (userData.users.hasOwnProperty([auth.uid])) {
         let user = userData.users[auth.uid]
@@ -22,14 +24,12 @@ const getActiveUser = (userData, auth) => {
 }
 
 const mapStateToProps = state => {
-  return {
-    User: getActiveUser(state.user, state.auth),
-    Auth: state.auth
-  }
+    return {
+        User: getActiveUser(state.user, state.auth),
+        Auth: state.auth
+    }
 }
 
-const ManageWishesContainer = connect(
-  mapStateToProps
-)(ManageWishes)
+const ManageWishesContainer = connect(mapStateToProps)(ManageWishes)
 
 export default ManageWishesContainer

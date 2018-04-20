@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -8,25 +8,31 @@ import LockOpen from 'material-ui-icons/LockOpen'
 
 const HeaderNormal = ({ openLoginDialog, toggleDrawer }) => {
     return (
-            <List>
-                <Link to="/" onClick={toggleDrawer}>
-                    <ListItem button>
+        <List>
+            <Link to="/" onClick={toggleDrawer}>
+                <ListItem button>
                     <ListItemIcon>
                         <Home />
                     </ListItemIcon>
-                        <ListItemText primary="Home" />              
-                    </ListItem>
-                </Link>
-                <Link to="/" onClick={() => { toggleDrawer(); openLoginDialog() }}>
-                    <ListItem button>
+                    <ListItemText primary="Home" />
+                </ListItem>
+            </Link>
+            <Link
+                to="/"
+                onClick={() => {
+                    toggleDrawer()
+                    openLoginDialog()
+                }}
+            >
+                <ListItem button>
                     <ListItemIcon>
                         <LockOpen />
                     </ListItemIcon>
-                        <ListItemText primary="Sign in" />              
-                    </ListItem>
-                </Link>
-            </List>
-    );
+                    <ListItemText primary="Sign in" />
+                </ListItem>
+            </Link>
+        </List>
+    )
 }
 
-export default HeaderNormal;
+export default HeaderNormal
