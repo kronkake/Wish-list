@@ -51,7 +51,13 @@ class WishForm extends Component {
                     <Input id="linkToPrisjakt" value={this.state.linkToPrisjakt} onChange={this.handleChange} />
                     <FormHelperText>Link to Prisjakt/Prisguide.no</FormHelperText>
                 </FormControl>
-                <Button raised className="Form-margin" color="primary" onClick={this.addWish}>
+                <Button
+                    style={{ marginTop: '16px' }}
+                    variant="raised"
+                    className="Form-margin"
+                    color="primary"
+                    onClick={this.addWish}
+                >
                     Add Wish
                 </Button>
             </form>

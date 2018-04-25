@@ -35,10 +35,10 @@ const WishCardEditMode = ({
                 </FormControl>
             </section>
             <section className="WishCard-Toolbar">
-                <Button raised className="Form-margin" color="primary" onClick={toggleEditMode}>
+                <Button variant="raised" className="Form-margin" color="primary" onClick={toggleEditMode}>
                     Cancel
                 </Button>
-                <Button raised className="Form-margin" color="primary" onClick={_editWish}>
+                <Button variant="raised" className="Form-margin" color="primary" onClick={_editWish}>
                     Save
                 </Button>
             </section>

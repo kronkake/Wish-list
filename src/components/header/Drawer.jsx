@@ -36,9 +36,12 @@ class SideDrawer extends Component {
                 </div>
             </section>
         )
+        const { toggleDrawer, loggedIn, open } = this.props
         return (
-            <Drawer open={this.props.open} onRequestClose={this.props.toggleDrawer}>
-                {this.props.loggedIn ? LoggedInContent : LoggedOutContent}
+            <Drawer open={open} onClose={toggleDrawer}>
+                <div tabIndex={0} role="button" onClick={toggleDrawer} onKeyDown={toggleDrawer}>
+                    {loggedIn ? LoggedInContent : LoggedOutContent}
+                </div>
             </Drawer>
         )
     }

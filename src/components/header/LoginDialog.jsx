@@ -7,7 +7,7 @@ import Dialog, { DialogActions, DialogContent, DialogContentText, DialogTitle } 
 
 const LoginDialog = ({ open, login, openLoginDialog, onChange, message, loading, checkForEnter }) => {
     return (
-        <Dialog open={open} onRequestClose={openLoginDialog}>
+        <Dialog open={open} onClose={openLoginDialog}>
             <DialogTitle>Log in</DialogTitle>
             <DialogContent>
                 <DialogContentText>{message}</DialogContentText>
@@ -35,7 +35,7 @@ const LoginDialog = ({ open, login, openLoginDialog, onChange, message, loading,
                 <Button onClick={openLoginDialog} color="default">
                     Cancel
                 </Button>
-                <Button onClick={login} size={50} color="primary">
+                <Button onClick={login} size="medium" color="primary">
                     {loading ? <CircularProgress /> : 'Log in'}
                 </Button>
             </DialogActions>

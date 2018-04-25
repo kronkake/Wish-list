@@ -6,7 +6,7 @@ import { FormControlLabel, FormGroup } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
 import Paper from 'material-ui/Paper'
 
-import { Firestore } from '../../../../Data/Firebase'
+import { Firestore, Firebase } from '../../../../Data/Firebase'
 
 import WishForm from './WishForm'
 import WishCardList from './WishCards/WishCardsList'
@@ -30,10 +30,14 @@ class ManageWishes extends Component {
         this.setDragAndDrop = this.setDragAndDrop.bind(this)
     }
     componentDidMount() {
-        this.setState({ userId: this.props.Auth.uid })
-        this.wishesRef = Firestore.collection('users')
-            .doc(this.props.Auth.uid)
-            .collection('wishes')
+        const user = Firebase.auth().currentUser
+
+        if (user) {
+            this.setState({ userId: user.uid })
+            this.wishesRef = Firestore.collection('users')
+                .doc(user.uid)
+                .collection('wishes')
+        }
     }
     addWish({ index, linkToPrisjakt, text, url }) {
         url = this.formatUrl(url)
@@ -136,7 +140,7 @@ class ManageWishes extends Component {
         return (
             <section>
                 <WishForm addWish={this.addWish} />
-                <Paper style={{ padding: '16px' }}>
+                <Paper style={{ padding: '16px', marginBottom: '16px' }}>
                     <FormGroup>
                         <FormControlLabel
                             label="Klikk for å slå av og på muligheten til å kunne rearrangere ønskene. Endring av ønsker fungerer ikke når rearrangering er aktivert"
@@ -144,20 +148,18 @@ class ManageWishes extends Component {
                         />
                     </FormGroup>
                 </Paper>
-                {this.props.User.wishes.length === 0 && !this.props.User.loading ? (
-                    <h2>You don't seem to want anything for christmas. Have you been bad?</h2>
+                {this.props.User.loading || this.state.loading ? (
+                    <LinearProgress />
                 ) : (
-                    <h2>Your wishes</h2>
+                    <WishCardList
+                        onDragEnd={this.onDragEnd}
+                        onDragStart={this.onDragStart}
+                        wishes={this.props.User.wishes}
+                        editWish={this.editWish}
+                        deleteWish={this.deleteWish}
+                        disableDragAndDrop={this.state.disableDragAndDrop}
+                    />
                 )}
-                {this.props.User.loading || this.state.loading ? <LinearProgress /> : null}
-                <WishCardList
-                    onDragEnd={this.onDragEnd}
-                    onDragStart={this.onDragStart}
-                    wishes={this.props.User.wishes}
-                    editWish={this.editWish}
-                    deleteWish={this.deleteWish}
-                    disableDragAndDrop={this.state.disableDragAndDrop}
-                />
             </section>
         )
     }

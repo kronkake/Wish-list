@@ -15,10 +15,15 @@ const WishCardNormalMode = ({
                 {index}. {text}
             </section>
             <section className="WishCard-Toolbar">
-                <Button raised className="Form-margin" color="primary" onClick={() => toggleConfirmation(true)}>
+                <Button
+                    variant="raised"
+                    className="Form-margin"
+                    color="primary"
+                    onClick={() => toggleConfirmation(true)}
+                >
                     Delete
                 </Button>
-                <Button raised className="Form-margin" color="primary" onClick={toggleEditMode}>
+                <Button variant="raised" className="Form-margin" color="secondary" onClick={toggleEditMode}>
                     Edit
                 </Button>
             </section>

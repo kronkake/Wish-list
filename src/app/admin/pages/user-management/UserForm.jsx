@@ -66,7 +66,7 @@ class UserForm extends Component {
                     <FormHelperText>Enter a url for a profile picture.</FormHelperText>
                 </FormControl>
 
-                <Button raised className="Form-margin" color="primary" onClick={this.AddUser}>
+                <Button variant="raised" className="Form-margin" color="primary" onClick={this.AddUser}>
                     Add User
                 </Button>
             </form>
