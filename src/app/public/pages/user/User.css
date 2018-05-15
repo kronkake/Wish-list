@@ -60,6 +60,10 @@
     .User-image * img {
         max-height: 400px !important;
     }
+    .User-image--placeholder {
+        height: 300px;
+        width: 300px;
+    }
     .User-Wishes {
         bottom: 150px !important;
     }
@@ -76,8 +80,8 @@
 }
 
 .User-image--placeholder {
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
     background-color: #BDBDBD;
     border-radius: 50%;
 }

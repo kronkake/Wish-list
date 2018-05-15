@@ -13,14 +13,12 @@ const UserCard = ({ index, style, wish: { text, url, linkToPrisjakt } }) => {
             <CardActions>
                 {url ? (
                     <a target="_blank" href={url}>
-                        <Button color="primary" dense>
-                            Lenke
-                        </Button>
+                        <Button color="primary">Lenke</Button>
                     </a>
                 ) : null}
                 {linkToPrisjakt ? (
                     <a target="_blank" href={linkToPrisjakt}>
-                        <Button dense>Prisjakt</Button>
+                        <Button>Prisjakt</Button>
                     </a>
                 ) : null}
             </CardActions>

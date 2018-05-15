@@ -18,10 +18,24 @@ class User extends Component {
             loadingImage: true
         }
 
+        this.image = undefined
+
         this.toggleImage = this.toggleImage.bind(this)
     }
     componentDidMount() {
         window.scrollTo(0, 0)
+    }
+
+    updateImage() {
+        const { userData } = this.props
+
+        if (!userData.loading && !this.image) {
+            this.image = new Image()
+            this.image.onload = () => {
+                this.toggleImage()
+            }
+            this.image.src = userData.user.profilePicUrl
+        }
     }
     toggleImage() {
         setTimeout(() => {
@@ -37,23 +51,24 @@ class User extends Component {
         } = this.props
 
         if (!userData.loading && wishes.length === 0) {
-            return <h2 className="User-Nickname">"{userData.user.nickname}" ønsker seg ingenting til jul :(</h2>
+            return <h2 className="User-Nickname">"{userData.user.nickname}" ønsker seg ingenting :(</h2>
         } else {
             return null
         }
     }
-    renderPlaceholder({ opacity, ...rest }) {
+    renderPlaceholder({ opacity, filter, ...rest }) {
         const profilePicUrl = rest.profilePicUrl
+
         return (
-            <animated.div style={{ opacity }} className="User-image-transitionLayer">
+            <animated.div style={{ opacity, filter }} className="User-image-transitionLayer">
                 <img src={profilePicUrl} />
             </animated.div>
         )
     }
 
-    renderUserImage({ opacity }) {
+    renderUserImage({ opacity, filter }) {
         return (
-            <animated.div style={{ opacity }} className="User-image-transitionLayer">
+            <animated.div style={{ opacity, filter }} className="User-image-transitionLayer">
                 <div className="User-image--placeholder" />
             </animated.div>
         )
@@ -66,6 +81,8 @@ class User extends Component {
         } = this.props
         const { loadingImage } = this.state
 
+        this.updateImage()
+
         return (
             <section className="User">
                 {userData.loading ? <LinearProgress /> : null}
@@ -73,18 +90,17 @@ class User extends Component {
                     <div className="User-image">
                         <Transition
                             native
-                            from={{ opacity: 0 }}
-                            enter={{ opacity: 1 }}
-                            leave={{ opacity: 0 }}
+                            from={{ opacity: 0, filter: 'blur(5px)' }}
+                            enter={{ opacity: 1, filter: 'blur(0px)' }}
+                            leave={{ opacity: 0, filter: 'blur(5px)' }}
                             profilePicUrl={userData.user.profilePicUrl}
-                            toggleImage={this.toggleImage}
                             config={{ tension: 5, friction: 5 }}
                         >
                             {loadingImage ? this.renderUserImage : this.renderPlaceholder}
                         </Transition>
                     </div>
                 </header>
-                <img src={userData.user.profilePicUrl} onLoad={this.toggleImage} style={{ display: 'none' }} />
+
                 <section className="User-Wishes">
                     {!userData.loading && !this.state.loading ? (
                         <Fragment>
