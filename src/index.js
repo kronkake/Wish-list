@@ -14,6 +14,7 @@ import store from './Data/Store'
 
 initFirestoreEventListeners()
 
+
 ReactDOM.render(
     <HashRouter>
         <MuiThemeProvider theme={muiTheme}>
